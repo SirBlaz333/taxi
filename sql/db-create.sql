@@ -66,12 +66,12 @@ DROP TABLE IF EXISTS `taxi`.`receipts` ;
 CREATE TABLE IF NOT EXISTS `taxi`.`receipts` (
   `id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `cars_id` INT NOT NULL,
+  `car_id` INT NOT NULL,
   `price` INT NOT NULL,
   `length` INT NOT NULL,
   `destination` VARCHAR(45) NOT NULL,
   `departure` VARCHAR(45) NOT NULL,
-  `tariffs_id` INT NOT NULL,
+  `tariff_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

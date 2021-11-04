@@ -8,6 +8,8 @@ public class Receipt {
     private int price;
     private int length;
     private String destination;
+    private String departure;
+
     private int tariffId;
 
     public int getId() {
@@ -48,6 +50,14 @@ public class Receipt {
 
     public void setLength(int length) {
         this.length = length;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
     }
 
     public String getDestination() {

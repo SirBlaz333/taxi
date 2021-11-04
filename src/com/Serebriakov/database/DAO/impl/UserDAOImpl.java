@@ -2,7 +2,6 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DatabaseManager;
-import com.Serebriakov.database.SQLQuery;
 import com.Serebriakov.entity.User;
 
 import java.io.IOException;
@@ -13,12 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.Serebriakov.database.SQLQuery.UserQuery.*;
+
 public class UserDAOImpl implements UserDAO {
 
-    private static final String ADD_USER = SQLQuery.UserQuery.ADD_USER;
-    private static final String GET_USER_BY_LOGIN = SQLQuery.UserQuery.GET_USER_BY_LOGIN;
-    private static final String GET_USER_BY_ID = SQLQuery.UserQuery.GET_USER_BY_ID;
-    private static final String GET_ALL_USERS = SQLQuery.UserQuery.GET_ALL_USERS;
     private DatabaseManager dbManager;
 
     public UserDAOImpl() throws IOException{
