@@ -4,19 +4,20 @@ public class User {
 
     private String login;
     private int id;
-    private int roleId;
+    private String role;
 
     private User(){}
 
-    public User(String login, int id, int roleId) {
+    public User(String login, int id, String role) {
         this.login = login;
         this.id = id;
-        this.roleId = roleId;
+        this.role = role;
     }
 
     public static User getUser(String login){
         User user = new User();
         user.setLogin(login);
+        user.setRole("user");
         return user;
     }
 
@@ -24,8 +25,8 @@ public class User {
         this.login = login;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setId(int id) {
@@ -40,8 +41,8 @@ public class User {
         return id;
     }
 
-    public int getRoleId() {
-        return roleId;
+    public String getRole() {
+        return role;
     }
 
     @Override

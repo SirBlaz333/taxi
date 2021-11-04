@@ -2,7 +2,6 @@ package com.Serebriakov;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
-import com.Serebriakov.entity.User;
 
 import java.io.IOException;
 import java.sql.SQLException;

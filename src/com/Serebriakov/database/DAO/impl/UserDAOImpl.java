@@ -34,8 +34,8 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id");
-                int roleId = rs.getInt("roles_id");
-                user = new User(login, id ,roleId);
+                String role = rs.getString("role");
+                user = new User(login, id ,role);
             }
         }
         return user;
@@ -50,8 +50,8 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 String login = rs.getString("login");
-                int roleId = rs.getInt("roles_id");
-                user = new User(login, id ,roleId);
+                String role = rs.getString("role");
+                user = new User(login, id, role);
             }
         }
         return user;
@@ -66,8 +66,8 @@ public class UserDAOImpl implements UserDAO {
             while(rs.next()){
                 int id = rs.getInt("id");
                 String login = rs.getString("login");
-                int roleId = rs.getInt("roles_id");
-                User user = new User(login, id, roleId);
+                String role = rs.getString("role");
+                User user = new User(login, id, role);
                 users.add(user);
             }
         }
