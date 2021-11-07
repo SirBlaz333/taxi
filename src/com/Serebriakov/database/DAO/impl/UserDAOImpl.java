@@ -2,6 +2,7 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DatabaseManager;
+import com.Serebriakov.database.type.Roles;
 import com.Serebriakov.entity.User;
 
 import java.io.IOException;
@@ -34,7 +35,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                String role = getUserRole(roleId);
+                Roles role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
         }
@@ -55,7 +56,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                String role = getUserRole(roleId);
+                Roles role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
         }
@@ -63,14 +64,18 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public String getUserRole(int roleId) throws SQLException {
-        String role = null;
+    public Roles getUserRole(int roleId) throws SQLException {
+        Roles role = null;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ROLE)){
             preparedStatement.setInt(1, roleId);
             ResultSet rs = preparedStatement.executeQuery();
+            String result = null;
             while(rs.next()){
-                role = rs.getString("role");
+                result = rs.getString("role");
+            }
+            if(result!=null){
+                role = Roles.getRole(result);
             }
         }
         return role;
@@ -88,7 +93,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                String role = getUserRole(roleId);
+                Roles role = getUserRole(roleId);
                 User user = new User(id, login, password, email, role);
                 users.add(user);
             }
@@ -101,6 +106,8 @@ public class UserDAOImpl implements UserDAO {
         Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER);
         preparedStatement.setString(1, user.getLogin());
+        preparedStatement.setString(2, user.getPassword());
+        preparedStatement.setString(3, user.getEmail());
         preparedStatement.execute();
     }
 

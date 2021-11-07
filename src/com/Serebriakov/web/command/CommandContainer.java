@@ -9,6 +9,7 @@ public class CommandContainer {
     static{
         commands = new HashMap<>();
         commands.put("login", new LoginCommand());
+        commands.put("createUser", new CreateUserCommand());
     }
 
     public static Command getCommand(String command){

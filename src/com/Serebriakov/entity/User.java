@@ -1,16 +1,18 @@
 package com.Serebriakov.entity;
 
+import com.Serebriakov.database.type.Roles;
+
 public class User {
 
     private int id;
     private String login;
     private String password;
     private String email;
-    private String role;
+    private Roles role;
 
     private User(){}
 
-    public User(int id, String login, String password, String email, String role) {
+    public User(int id, String login, String password, String email, Roles role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -18,10 +20,19 @@ public class User {
         this.role = role;
     }
 
+    public static User createUser(String login, String password, String email, Roles role){
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.setRole(role);
+        return user;
+    }
+
     public static User getUser(String login){
         User user = new User();
         user.setLogin(login);
-        user.setRole("user");
+        user.setRole(Roles.USER);
         return user;
     }
 
@@ -29,7 +40,7 @@ public class User {
         this.login = login;
     }
 
-    public void setRole(String role) {
+    public void setRole(Roles role) {
         this.role = role;
     }
 
@@ -45,7 +56,7 @@ public class User {
         return id;
     }
 
-    public String getRole() {
+    public Roles getRole() {
         return role;
     }
 

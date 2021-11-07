@@ -9,9 +9,7 @@
       <input type="password" name="password"><br>
       <input type="submit" value="Login">
     </form>
-    <form action="controller" method="post">
-      <input type="hidden" name="command" value="createUser">
-      <input type="submit" value="Sign up">
-    </form>
+    <br>
+    <a href="create_user.jsp">Sign up</a>
   </body>
 </html>

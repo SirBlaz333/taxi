@@ -1,5 +1,6 @@
 package com.Serebriakov.database.DAO;
 
+import com.Serebriakov.database.type.Roles;
 import com.Serebriakov.entity.User;
 
 import java.sql.SQLException;
@@ -11,7 +12,7 @@ public interface UserDAO {
 
     User getUserById(int id) throws SQLException;
 
-    String getUserRole(int roleId) throws SQLException;
+    Roles getUserRole(int roleId) throws SQLException;
 
     List<User> getAllUsers() throws SQLException;
 
