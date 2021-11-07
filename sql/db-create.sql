@@ -15,6 +15,18 @@ CREATE SCHEMA IF NOT EXISTS `taxi` DEFAULT CHARACTER SET utf8 ;
 USE `taxi` ;
 
 -- -----------------------------------------------------
+-- Table `taxi`.`roles`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`roles` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`roles` (
+  `id` INT NOT NULL,
+  `role` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `taxi`.`users`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `taxi`.`users` ;
@@ -22,13 +34,41 @@ DROP TABLE IF EXISTS `taxi`.`users` ;
 CREATE TABLE IF NOT EXISTS `taxi`.`users` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `login` VARCHAR(32) NOT NULL,
-  `role` VARCHAR(10) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `role_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 CREATE UNIQUE INDEX `iduser_UNIQUE` ON `taxi`.`users` (`id` ASC) VISIBLE;
 
 CREATE UNIQUE INDEX `login_UNIQUE` ON `taxi`.`users` (`login` ASC) VISIBLE;
+
+CREATE UNIQUE INDEX `email_UNIQUE` ON `taxi`.`users` (`email` ASC) VISIBLE;
+
+
+-- -----------------------------------------------------
+-- Table `taxi`.`car_states`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`car_states` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`car_states` (
+  `id` INT NOT NULL,
+  `state` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `taxi`.`types`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`types` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`types` (
+  `id` INT NOT NULL,
+  `type` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
@@ -37,10 +77,10 @@ CREATE UNIQUE INDEX `login_UNIQUE` ON `taxi`.`users` (`login` ASC) VISIBLE;
 DROP TABLE IF EXISTS `taxi`.`cars` ;
 
 CREATE TABLE IF NOT EXISTS `taxi`.`cars` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `max_passengers` INT NOT NULL,
-  `type` VARCHAR(15) NOT NULL,
-  `state` VARCHAR(10) NOT NULL,
+  `state_id` INT NOT NULL,
+  `type_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -59,19 +99,33 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `taxi`.`receipt_states`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`receipt_states` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`receipt_states` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `state` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `taxi`.`receipts`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `taxi`.`receipts` ;
 
 CREATE TABLE IF NOT EXISTS `taxi`.`receipts` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `car_id` INT NOT NULL,
   `price` INT NOT NULL,
   `length` INT NOT NULL,
+  `tariff_id` INT NOT NULL,
   `destination` VARCHAR(45) NOT NULL,
   `departure` VARCHAR(45) NOT NULL,
-  `tariff_id` INT NOT NULL,
+  `date` DATETIME NOT NULL,
+  `receipt_state_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

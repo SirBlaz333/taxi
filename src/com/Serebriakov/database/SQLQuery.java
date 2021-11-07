@@ -7,6 +7,7 @@ public abstract class SQLQuery {
         public static final String GET_USER_BY_LOGIN = "SELECT * FROM users WHERE login = ?";
         public static final String GET_USER_BY_ID = "SELECT * FROM users WHERE id = ?";
         public static final String GET_ALL_USERS = "SELECT * FROM users";
+        public static final String GET_USER_ROLE = "SELECT * FROM roles WHERE id = ?";
     }
 
     public static class ReceiptQuery{

@@ -31,12 +31,17 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 int id = rs.getInt("id");
-                String role = rs.getString("role");
-                user = new User(login, id ,role);
+                int roleId = rs.getInt("role_id");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String role = getUserRole(roleId);
+                user = new User(id, login, password, email, role);
             }
         }
         return user;
     }
+
+
 
     @Override
     public User getUserById(int id) throws SQLException {
@@ -47,11 +52,28 @@ public class UserDAOImpl implements UserDAO {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
                 String login = rs.getString("login");
-                String role = rs.getString("role");
-                user = new User(login, id, role);
+                int roleId = rs.getInt("role_id");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String role = getUserRole(roleId);
+                user = new User(id, login, password, email, role);
             }
         }
         return user;
+    }
+
+    @Override
+    public String getUserRole(int roleId) throws SQLException {
+        String role = null;
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ROLE)){
+            preparedStatement.setInt(1, roleId);
+            ResultSet rs = preparedStatement.executeQuery();
+            while(rs.next()){
+                role = rs.getString("role");
+            }
+        }
+        return role;
     }
 
     @Override
@@ -63,8 +85,11 @@ public class UserDAOImpl implements UserDAO {
             while(rs.next()){
                 int id = rs.getInt("id");
                 String login = rs.getString("login");
-                String role = rs.getString("role");
-                User user = new User(login, id, role);
+                int roleId = rs.getInt("role_id");
+                String password = rs.getString("password");
+                String email = rs.getString("email");
+                String role = getUserRole(roleId);
+                User user = new User(id, login, password, email, role);
                 users.add(user);
             }
         }

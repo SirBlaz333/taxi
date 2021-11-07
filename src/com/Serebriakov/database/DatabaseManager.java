@@ -18,11 +18,17 @@ public class DatabaseManager {
 
     private DatabaseManager() throws IOException{
         Properties properties = new Properties();
-        properties.load(new FileInputStream("connection.properties"));
-        URL = properties.getProperty("url");
+        //properties.load(new FileInputStream("connection.properties"));
+        //URL = properties.getProperty("url");
+        URL = "jdbc:mysql://localhost:3306/taxi?user=root&password=root&serverTimezone=UTC";
     }
 
     public static DatabaseManager getInstance() throws IOException{
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         if(dbManager == null){
             dbManager = new DatabaseManager();
         }

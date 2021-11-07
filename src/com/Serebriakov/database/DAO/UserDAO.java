@@ -11,6 +11,8 @@ public interface UserDAO {
 
     User getUserById(int id) throws SQLException;
 
+    String getUserRole(int roleId) throws SQLException;
+
     List<User> getAllUsers() throws SQLException;
 
     void addUser(User user) throws SQLException;
