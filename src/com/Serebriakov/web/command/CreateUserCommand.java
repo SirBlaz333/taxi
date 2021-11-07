@@ -2,6 +2,7 @@ package com.Serebriakov.web.command;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
+import com.Serebriakov.database.type.Roles;
 import com.Serebriakov.entity.User;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +17,7 @@ public class CreateUserCommand implements Command {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         UserDAO userDAO = new UserDAOImpl();
-        User user = User.createUser(login, password, email, "user");
+        User user = User.createUser(login, password, email, Roles.USER);
         try{
             userDAO.addUser(user);
             user = userDAO.getUserByLogin(login);

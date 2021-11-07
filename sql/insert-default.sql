@@ -59,4 +59,6 @@ INSERT INTO receipt_states VALUES (1, 'created');
 INSERT INTO receipt_states VALUES (2, 'confirmed');
 INSERT INTO receipt_states VALUES (3, 'done');
 
-INSERT receipts VALUES (DEFAULT, 1, 2, 100, 5, 'Kharkivskya, 22', 'Kurskya, 58', '2021-11-05 17:15:30', 3);
+INSERT INTO receipts VALUES (DEFAULT, 1, 2, 100, 5, 'Kharkivskya, 22', 'Kurskya, 58', '2021-11-05 17:15:30', 3);
+
+INSERT INTO users_has_receipt VALUES (1, 1);
