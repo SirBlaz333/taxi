@@ -7,8 +7,10 @@ public class Receipt {
     private int id;
     private int userId;
     private int carId;
-    private double price;
-    private double length;
+    private int price;
+    private int length;
+    private double priceDouble;
+    private double lengthDouble;
     private int pricePerKm;
     private String destination;
     private String departure;
@@ -47,20 +49,30 @@ public class Receipt {
         this.carId = carId;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
+        this.priceDouble = price/100.00;
     }
 
-    public double getLength() {
+    public int getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(int length) {
         this.length = length;
+        this.lengthDouble = length/100.00;
+    }
+
+    public double getLengthDouble(){
+        return lengthDouble;
+    }
+
+    public double getPriceDouble(){
+        return priceDouble;
     }
 
     public String getDestination() {

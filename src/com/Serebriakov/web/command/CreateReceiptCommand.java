@@ -48,19 +48,19 @@ public class CreateReceiptCommand implements Command {
         LocalDateTime now = LocalDateTime.now();
         receipt.setDate(dtf.format(now));
 
-        double length = new SecureRandom().nextDouble()*8.5+1.5;
-        length = Math.round(length*100)/100.00;
+        int length = new SecureRandom().nextInt(850)+150;
         receipt.setLength(length);
 
         receipt.setPricePerKm(carDAO.findPrice(car.getType(), length));
         receipt.setPrice(receipt.getPricePerKm()*length);
 
         receipt.setState(Receipt_states.CREATED);
-        request.getSession().setAttribute("currentReceipt", receipt);
 
+        System.out.println(receipt.getDestination());
         int id = receiptDAO.addReceipt(receipt);
         receipt.setId(id);
-        System.out.println(id);
+
+        request.getSession().setAttribute("currentReceipt", receipt);
         return "confirmation_page.jsp";
     }
 }

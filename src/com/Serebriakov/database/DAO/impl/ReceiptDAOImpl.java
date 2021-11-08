@@ -31,17 +31,20 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             PreparedStatement idPs = connection.prepareStatement(FIND_LAST_RECEIPT_ID)){
             ps.setInt(1, receipt.getUserId());
             ps.setInt(2, receipt.getCarId());
-            ps.setDouble(3, receipt.getPrice());
-            ps.setDouble(4, receipt.getLength());
+            ps.setInt(3, receipt.getPrice());
+            ps.setInt(4, receipt.getLength());
             ps.setString(5, receipt.getDestination());
             ps.setString(6, receipt.getDeparture());
             ps.setString(7, receipt.getDate());
             ps.setInt(8, getStateId(Receipt_states.getStringState(receipt.getState())));
+            System.out.println(1);
             ps.execute();
+            System.out.println(2);
             ResultSet rs = idPs.executeQuery();
             while(rs.next()){
                 id = rs.getInt("LAST_INSERT_ID()");
             }
+            System.out.println(3);
         }
         return id;
     }
@@ -94,8 +97,8 @@ public class ReceiptDAOImpl implements ReceiptDAO {
         receipt.setId(rs.getInt(1));
         receipt.setUserId(rs.getInt(2));
         receipt.setCarId(rs.getInt(3));
-        receipt.setPrice(rs.getDouble(4));
-        receipt.setLength(rs.getDouble(5));
+        receipt.setPrice(rs.getInt(4));
+        receipt.setLength(rs.getInt(5));
         receipt.setDeparture(rs.getString(6));
         receipt.setDestination(rs.getString(7));
         receipt.setState(Receipt_states.getState(rs.getString(8)));

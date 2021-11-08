@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <form action="controller" method="post">
+    <form action="controller" method="post" accept-charset="UTF-8">
       Login:
       <br>
       <input type="hidden" name="command" value="login">
