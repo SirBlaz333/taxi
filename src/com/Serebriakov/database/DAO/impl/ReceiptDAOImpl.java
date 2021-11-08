@@ -24,9 +24,11 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     }
 
     @Override
-    public void addReceipt(Receipt receipt) throws SQLException {
+    public int addReceipt(Receipt receipt) throws SQLException {
+        int id = -1;
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(ADD_RECEIPT)){
+            PreparedStatement ps = connection.prepareStatement(ADD_RECEIPT);
+            PreparedStatement idPs = connection.prepareStatement(FIND_LAST_RECEIPT_ID)){
             ps.setInt(1, receipt.getUserId());
             ps.setInt(2, receipt.getCarId());
             ps.setDouble(3, receipt.getPrice());
@@ -34,12 +36,14 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             ps.setString(5, receipt.getDestination());
             ps.setString(6, receipt.getDeparture());
             ps.setString(7, receipt.getDate());
-            System.out.println(Receipt_states.getStringState(receipt.getState()));
-            System.out.println(getStateId(Receipt_states.getStringState(receipt.getState())));
             ps.setInt(8, getStateId(Receipt_states.getStringState(receipt.getState())));
-            System.out.println("last");
             ps.execute();
+            ResultSet rs = idPs.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("LAST_INSERT_ID()");
+            }
         }
+        return id;
     }
 
 
@@ -99,12 +103,20 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     }
 
     @Override
-    public void deleteReceipt(int id) {
-
+    public void deleteReceipt(int id) throws SQLException {
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(DELETE_RECEIPT)){
+            ps.setInt(1, id);
+            ps.execute();
+        }
     }
 
     @Override
-    public void updateReceipt(int id) {
-
+    public void confirmReceipt(int id) throws SQLException {
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(CONFIRM_RECEIPT)){
+            ps.setInt(1, id);
+            ps.execute();
+        }
     }
 }

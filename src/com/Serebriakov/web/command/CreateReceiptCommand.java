@@ -30,6 +30,9 @@ public class CreateReceiptCommand implements Command {
         String departure = request.getParameter("departure");
         String destination = request.getParameter("destination");
 
+        request.getSession().setAttribute("car_type", carType);
+        request.getSession().setAttribute("passengers", passengers);
+
         Receipt receipt = new Receipt();
 
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -46,16 +49,18 @@ public class CreateReceiptCommand implements Command {
         receipt.setDate(dtf.format(now));
 
         double length = new SecureRandom().nextDouble()*8.5+1.5;
+        length = Math.round(length*100)/100.00;
         receipt.setLength(length);
 
-        receipt.setPrice(carDAO.findPrice(car.getType(), length));
+        receipt.setPricePerKm(carDAO.findPrice(car.getType(), length));
+        receipt.setPrice(receipt.getPricePerKm()*length);
 
         receipt.setState(Receipt_states.CREATED);
         request.getSession().setAttribute("currentReceipt", receipt);
 
-        System.out.println(1);
-        receiptDAO.addReceipt(receipt);
-        System.out.println(1);
+        int id = receiptDAO.addReceipt(receipt);
+        receipt.setId(id);
+        System.out.println(id);
         return "confirmation_page.jsp";
     }
 }

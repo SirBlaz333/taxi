@@ -9,10 +9,19 @@ public class Receipt {
     private int carId;
     private double price;
     private double length;
+    private int pricePerKm;
     private String destination;
     private String departure;
     private String date;
     private Receipt_states state;
+
+    public int getPricePerKm() {
+        return pricePerKm;
+    }
+
+    public void setPricePerKm(int pricePerKm) {
+        this.pricePerKm = pricePerKm;
+    }
 
     public int getId() {
         return id;

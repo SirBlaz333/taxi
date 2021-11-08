@@ -79,8 +79,8 @@ DROP TABLE IF EXISTS `taxi`.`cars` ;
 CREATE TABLE IF NOT EXISTS `taxi`.`cars` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `max_passengers` INT NOT NULL,
-  `state_id` INT NOT NULL,
   `type_id` INT NOT NULL,
+  `state_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

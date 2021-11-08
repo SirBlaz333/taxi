@@ -9,5 +9,5 @@ public interface CarDAO {
     void updateCar(Car car);
     Car findCar(int passengers, Car_types type) throws SQLException;
     int findCarTypeId(Car_types type) throws SQLException;
-    double findPrice(Car_types type, double length) throws SQLException;
+    int findPrice(Car_types type, double length) throws SQLException;
 }

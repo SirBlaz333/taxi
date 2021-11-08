@@ -15,6 +15,9 @@ public abstract class SQLQuery {
         public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipts WHERE id = ?";
         public static final String GET_RECEIPTS_BY_USER_ID = "SELECT * FROM receipts WHERE user_id = ?";
         public static final String GET_STATE_ID = "SELECT * FROM receipt_states WHERE state = ?";
+        public static final String DELETE_RECEIPT = "DELETE FROM receipts WHERE id = ?";
+        public static final String CONFIRM_RECEIPT = "UPDATE receipts SET receipt_state_id = 2 WHERE id = ?;";
+        public static final String FIND_LAST_RECEIPT_ID = "SELECT LAST_INSERT_ID();";
     }
 
     public static class CarQuery{

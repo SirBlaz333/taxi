@@ -61,19 +61,19 @@ public class CarDAOImpl implements CarDAO {
     }
 
     @Override
-    public double findPrice(Car_types type, double length) throws SQLException {
+    public int findPrice(Car_types type, double length) throws SQLException {
         int typeId = findCarTypeId(type);
-        double price = -1;
+        int price = -1;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(FIND_TARIFF)){
             ps.setInt(1, typeId);
             ps.setDouble(2, length);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                price = rs.getDouble("price_for_km");
+                price = rs.getInt("price_for_km");
             }
         }
-        return price*length;
+        return price;
     }
 
 }
