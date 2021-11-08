@@ -9,7 +9,7 @@
         <br>Login:<br>
         <input name="login">
         <br>Email:<br>
-        <input name="email">
+        <input name="email" type="email">
         <br>Password:<br>
         <input type="password" name="password"><br><br>
         <input type="submit" value="Sign up">

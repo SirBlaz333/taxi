@@ -11,8 +11,15 @@ public abstract class SQLQuery {
     }
 
     public static class ReceiptQuery{
-        public static final String ADD_RECEIPT = "INSERT INTO receipts VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
+        public static final String ADD_RECEIPT = "INSERT INTO receipts VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?)";
         public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipts WHERE id = ?";
         public static final String GET_RECEIPTS_BY_USER_ID = "SELECT * FROM receipts WHERE user_id = ?";
+        public static final String GET_STATE_ID = "SELECT * FROM receipt_states WHERE state = ?";
+    }
+
+    public static class CarQuery{
+        public static final String FIND_AVAILABLE_CAR = "SELECT * FROM cars WHERE max_passengers >= ? AND type_id = ? AND state_id = 1;";
+        public static final String FIND_CAR_TYPE_ID = "SELECT * FROM types WHERE type = ?;";
+        public static final String FIND_TARIFF = "SELECT * FROM tariffs WHERE types_id = ? AND length <= ?;";
     }
 }

@@ -25,7 +25,7 @@ public class CreateUserCommand implements Command {
             request.getSession().setAttribute("errorMessage", "This user is already exist");
             return "error_page.jsp";
         }
-        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("currentUser", user);
         return "user_page.jsp";
     }
 }

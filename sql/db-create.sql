@@ -106,11 +106,11 @@ CREATE TABLE IF NOT EXISTS `taxi`.`receipts` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user_id` INT NOT NULL,
   `car_id` INT NOT NULL,
-  `price` INT NOT NULL,
-  `length` INT NOT NULL,
+  `price` DOUBLE NOT NULL,
+  `length` DOUBLE NOT NULL,
   `destination` VARCHAR(45) NOT NULL,
   `departure` VARCHAR(45) NOT NULL,
-  `date` DATETIME NOT NULL,
+  `date` VARCHAR(20) NOT NULL,
   `receipt_state_id` INT NOT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -135,21 +135,10 @@ DROP TABLE IF EXISTS `taxi`.`tariffs` ;
 
 CREATE TABLE IF NOT EXISTS `taxi`.`tariffs` (
   `id` INT NOT NULL,
-  `price_for_km` INT NOT NULL,
-  `lenght` INT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `taxi`.`types_has_tariffs`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `taxi`.`types_has_tariffs` ;
-
-CREATE TABLE IF NOT EXISTS `taxi`.`types_has_tariffs` (
   `types_id` INT NOT NULL,
-  `tariffs_id` INT NOT NULL,
-  PRIMARY KEY (`types_id`, `tariffs_id`))
+  `price_for_km` INT NOT NULL,
+  `length` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 

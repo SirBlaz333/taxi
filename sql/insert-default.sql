@@ -8,38 +8,22 @@ INSERT INTO roles VALUES(1, 'user');
 INSERT INTO roles VALUES(2, 'admin');
 
 -- Public hire --
-INSERT INTO tariffs VALUES(1, 20, 1.5);
-INSERT INTO tariffs VALUES(2, 17, 4);
-INSERT INTO tariffs VALUES(3, 15, 5.5);
-INSERT INTO tariffs VALUES(4, 14, 7);
+INSERT INTO tariffs VALUES(1, 1, 20, 1.5);
+INSERT INTO tariffs VALUES(2, 1, 17, 4);
+INSERT INTO tariffs VALUES(3, 1, 15, 5.5);
+INSERT INTO tariffs VALUES(4, 1, 14, 7);
 
 -- Minicab --
-INSERT INTO tariffs VALUES(5, 25, 1.5);
-INSERT INTO tariffs VALUES(6, 22, 4);
-INSERT INTO tariffs VALUES(7, 20, 5.5);
-INSERT INTO tariffs VALUES(8, 19, 7);
+INSERT INTO tariffs VALUES(5, 2, 25, 1.5);
+INSERT INTO tariffs VALUES(6, 2, 22, 4);
+INSERT INTO tariffs VALUES(7, 2, 20, 5.5);
+INSERT INTO tariffs VALUES(8, 2, 19, 7);
 
 -- Minibus --
-INSERT INTO tariffs VALUES(9, 50, 1.5);
-INSERT INTO tariffs VALUES(10, 47, 4);
-INSERT INTO tariffs VALUES(11, 45, 5.5);
-INSERT INTO tariffs VALUES(12, 42, 7);
-
-INSERT INTO types_has_tariffs VALUES (1, 1);
-INSERT INTO types_has_tariffs VALUES (1, 2);
-INSERT INTO types_has_tariffs VALUES (1, 3);
-INSERT INTO types_has_tariffs VALUES (1, 4);
-
-
-INSERT INTO types_has_tariffs VALUES (2, 5);
-INSERT INTO types_has_tariffs VALUES (2, 6);
-INSERT INTO types_has_tariffs VALUES (2, 7);
-INSERT INTO types_has_tariffs VALUES (2, 8);
-
-INSERT INTO types_has_tariffs VALUES (3, 9);
-INSERT INTO types_has_tariffs VALUES (3, 10);
-INSERT INTO types_has_tariffs VALUES (3, 11);
-INSERT INTO types_has_tariffs VALUES (3, 12);
+INSERT INTO tariffs VALUES(9, 3, 50, 1.5);
+INSERT INTO tariffs VALUES(10, 3, 47, 4);
+INSERT INTO tariffs VALUES(11, 3, 45, 5.5);
+INSERT INTO tariffs VALUES(12, 3, 42, 7);
 
 INSERT INTO types VALUES (1, 'Public hire taxi');
 INSERT INTO types VALUES (2, 'Minicab');

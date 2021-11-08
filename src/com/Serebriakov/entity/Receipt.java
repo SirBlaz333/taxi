@@ -1,16 +1,18 @@
 package com.Serebriakov.entity;
 
+import com.Serebriakov.database.state.Receipt_states;
+
 public class Receipt {
 
     private int id;
     private int userId;
     private int carId;
-    private int price;
-    private int length;
+    private double price;
+    private double length;
     private String destination;
     private String departure;
-
-    private int tariffId;
+    private String date;
+    private Receipt_states state;
 
     public int getId() {
         return id;
@@ -36,28 +38,20 @@ public class Receipt {
         this.carId = carId;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public int getLength() {
+    public double getLength() {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(double length) {
         this.length = length;
-    }
-
-    public String getDeparture() {
-        return departure;
-    }
-
-    public void setDeparture(String departure) {
-        this.departure = departure;
     }
 
     public String getDestination() {
@@ -68,11 +62,27 @@ public class Receipt {
         this.destination = destination;
     }
 
-    public int getTariffId() {
-        return tariffId;
+    public String getDeparture() {
+        return departure;
     }
 
-    public void setTariffId(int tariffId) {
-        this.tariffId = tariffId;
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public Receipt_states getState() {
+        return state;
+    }
+
+    public void setState(Receipt_states state) {
+        this.state = state;
     }
 }

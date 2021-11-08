@@ -16,4 +16,17 @@ public enum Receipt_states {
                 return null;
         }
     }
+
+    public static String getStringState(Receipt_states state){
+        switch (state){
+            case CREATED:
+                return "created";
+            case CONFIRMED:
+                return "confirmed";
+            case DONE:
+                return "done";
+            default:
+                return null;
+        }
+    }
 }

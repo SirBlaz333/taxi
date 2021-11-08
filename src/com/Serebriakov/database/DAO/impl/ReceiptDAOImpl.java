@@ -2,6 +2,7 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DatabaseManager;
+import com.Serebriakov.database.state.Receipt_states;
 import com.Serebriakov.entity.Receipt;
 
 import java.io.IOException;
@@ -28,14 +29,19 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             PreparedStatement ps = connection.prepareStatement(ADD_RECEIPT)){
             ps.setInt(1, receipt.getUserId());
             ps.setInt(2, receipt.getCarId());
-            ps.setInt(3, receipt.getPrice());
-            ps.setInt(4, receipt.getLength());
-            ps.setString(5, receipt.getDeparture());
+            ps.setDouble(3, receipt.getPrice());
+            ps.setDouble(4, receipt.getLength());
+            ps.setString(5, receipt.getDestination());
             ps.setString(6, receipt.getDeparture());
-            ps.setInt(7, receipt.getTariffId());
+            ps.setString(7, receipt.getDate());
+            System.out.println(Receipt_states.getStringState(receipt.getState()));
+            System.out.println(getStateId(Receipt_states.getStringState(receipt.getState())));
+            ps.setInt(8, getStateId(Receipt_states.getStringState(receipt.getState())));
+            System.out.println("last");
             ps.execute();
         }
     }
+
 
     @Override
     public Receipt getReceiptById(int id) throws SQLException {
@@ -65,16 +71,30 @@ public class ReceiptDAOImpl implements ReceiptDAO {
         return receipts;
     }
 
+    @Override
+    public int getStateId(String state) throws SQLException {
+        int id = -1;
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_STATE_ID)){
+            ps.setString(1, state);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                id = rs.getInt("id");
+            }
+        }
+        return id;
+    }
+
     private Receipt setReceipt(ResultSet rs) throws SQLException {
         Receipt receipt = new Receipt();
         receipt.setId(rs.getInt(1));
         receipt.setUserId(rs.getInt(2));
         receipt.setCarId(rs.getInt(3));
-        receipt.setPrice(rs.getInt(4));
-        receipt.setLength(rs.getInt(5));
+        receipt.setPrice(rs.getDouble(4));
+        receipt.setLength(rs.getDouble(5));
         receipt.setDeparture(rs.getString(6));
         receipt.setDestination(rs.getString(7));
-        receipt.setTariffId(rs.getInt(8));
+        receipt.setState(Receipt_states.getState(rs.getString(8)));
         return receipt;
     }
 

@@ -6,3 +6,10 @@ input{
     text-align: center;
     font-size: 115%;
 }
+
+text {
+    color: red;
+}
+h1{
+    color:green;
+}
