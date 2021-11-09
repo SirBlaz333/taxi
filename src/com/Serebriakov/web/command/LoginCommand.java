@@ -25,6 +25,6 @@ public class LoginCommand implements Command{
         }
 
         request.getSession().setAttribute("errorMessage", "Wrong login or password");
-        return "error_page.jsp";
+        return "login_error_page.jsp";
     }
 }

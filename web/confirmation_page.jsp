@@ -7,8 +7,8 @@
 <body>
     <h1>Your receipt:</h1><br>
     Receipt id:${sessionScope.currentReceipt.getId()}<br>
-    Car type: ${sessionScope.car_type}<br>
-    Amount of passengers: ${sessionScope.passengers}<br>
+    Car type: ${sessionScope.currentReceipt.getCarType()}<br>
+    Amount of passengers: ${sessionScope.currentReceipt.getPassengers()}<br>
     Departure: ${sessionScope.currentReceipt.getDeparture()}<br>
     Destination: ${sessionScope.currentReceipt.getDestination()}<br>
     Length: ${sessionScope.currentReceipt.getLengthDouble()}<br>

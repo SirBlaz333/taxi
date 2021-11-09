@@ -15,6 +15,8 @@ public class Receipt {
     private String destination;
     private String departure;
     private String date;
+    private String carType;
+    private int passengers;
     private Receipt_states state;
 
     public int getPricePerKm() {
@@ -73,6 +75,22 @@ public class Receipt {
 
     public double getPriceDouble(){
         return priceDouble;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
+    }
+
+    public int getPassengers() {
+        return passengers;
+    }
+
+    public void setPassengers(int passengers) {
+        this.passengers = passengers;
     }
 
     public String getDestination() {

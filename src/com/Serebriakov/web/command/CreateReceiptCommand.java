@@ -30,10 +30,10 @@ public class CreateReceiptCommand implements Command {
         String departure = request.getParameter("departure");
         String destination = request.getParameter("destination");
 
-        request.getSession().setAttribute("car_type", carType);
-        request.getSession().setAttribute("passengers", passengers);
-
         Receipt receipt = new Receipt();
+
+        receipt.setCarType(carType);
+        receipt.setPassengers(passengers);
 
         User user = (User) request.getSession().getAttribute("currentUser");
         receipt.setUserId(user.getId());

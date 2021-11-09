@@ -43,7 +43,6 @@ public class Controller extends HttpServlet {
 
     private Command getCommand(HttpServletRequest request){
         String commandName = request.getParameter("command");
-        Command command = CommandContainer.getCommand(commandName);
-        return command;
+        return CommandContainer.getCommand(commandName);
     }
 }

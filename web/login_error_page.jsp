@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <title>Error</title>
@@ -8,6 +7,6 @@
     <br>
     ${errorMessage}
     <br>
-    <a href="user_page.jsp">Go back to user page</a>
+    <a href="index.jsp">Try again</a>
 </body>
 </html>

@@ -23,7 +23,7 @@ public class CreateUserCommand implements Command {
             user = userDAO.getUserByLogin(login);
         } catch (SQLException e){
             request.getSession().setAttribute("errorMessage", "This user is already exist");
-            return "error_page.jsp";
+            return "login_error_page.jsp";
         }
         request.getSession().setAttribute("currentUser", user);
         return "user_page.jsp";
