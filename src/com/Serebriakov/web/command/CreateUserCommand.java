@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class CreateUserCommand implements Command {
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String login = request.getParameter("login");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
@@ -24,7 +24,7 @@ public class CreateUserCommand implements Command {
             user = userDAO.getUserByLogin(login);
         } catch (SQLException e){
             request.getSession().setAttribute("errorMessage", "This user is already exist");
-            return "login_error_page.jsp";
+            return "error_page.jsp";
         }
         request.getSession().setAttribute("currentUser", user);
         return "user_page.jsp";

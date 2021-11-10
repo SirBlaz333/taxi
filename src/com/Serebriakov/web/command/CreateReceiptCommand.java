@@ -27,7 +27,7 @@ public class CreateReceiptCommand implements Command {
         User user = (User) request.getSession().getAttribute("currentUser");
         if(user == null){
             request.getSession().setAttribute("errorMessage", "You are not logged in");
-            return "login_error_page.jsp";
+            return "error_page.jsp";
         }
 
         int length = new SecureRandom().nextInt(850)+150;
@@ -54,7 +54,6 @@ public class CreateReceiptCommand implements Command {
         int id = receiptDAO.addReceipt(receipt);
         receipt.setId(id);
         request.getSession().setAttribute("currentReceipt", receipt);
-        request.getSession().setAttribute("amountOfCars", 1);
         return "confirm_receipt_page.jsp";
     }
 }

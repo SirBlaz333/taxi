@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
 <head>
     <title>Confirm receipt</title>
@@ -7,7 +8,9 @@
 <body>
 <h1>Your receipt:</h1><br>
     Receipt id:${sessionScope.currentReceipt.getId()}<br>
-    Amount of cars: ${sessionScope.amountOfCars}<br>
+    <c:if test="${sessionScope.amountOfCars != null}">
+        Amount of cars: ${sessionScope.amountOfCars}<br>
+    </c:if>
     Car type: ${sessionScope.currentReceipt.getCarType()}<br>
     Amount of passengers: ${sessionScope.currentReceipt.getPassengers()}<br>
     Departure: ${sessionScope.currentReceipt.getDeparture()}<br>

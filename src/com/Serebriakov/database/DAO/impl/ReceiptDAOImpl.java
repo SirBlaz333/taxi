@@ -37,14 +37,11 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             ps.setString(6, receipt.getDeparture());
             ps.setString(7, receipt.getDate());
             ps.setInt(8, getStateId(Receipt_states.getStringState(receipt.getState())));
-            System.out.println(1);
             ps.execute();
-            System.out.println(2);
             ResultSet rs = idPs.executeQuery();
             while(rs.next()){
                 id = rs.getInt("LAST_INSERT_ID()");
             }
-            System.out.println(3);
         }
         return id;
     }
