@@ -4,6 +4,7 @@ import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
 import com.Serebriakov.database.type.Roles;
 import com.Serebriakov.entity.User;
+import com.Serebriakov.web.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,18 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <html>
 <head>
-    <title>Taxi</title>
+    <title>Confirm receipt</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Your receipt:</h1><br>
+<h1>Your receipt:</h1><br>
     Receipt id:${sessionScope.currentReceipt.getId()}<br>
+    Amount of cars: ${sessionScope.amountOfCars}<br>
     Car type: ${sessionScope.currentReceipt.getCarType()}<br>
     Amount of passengers: ${sessionScope.currentReceipt.getPassengers()}<br>
     Departure: ${sessionScope.currentReceipt.getDeparture()}<br>
     Destination: ${sessionScope.currentReceipt.getDestination()}<br>
     Length: ${sessionScope.currentReceipt.getLengthDouble()}<br>
-    Price per km: ${sessionScope.currentReceipt.getPricePerKm()}<br>
+    Price per km for 1 car: ${sessionScope.currentReceipt.getPricePerKm()}<br>
     Total price: ${sessionScope.currentReceipt.getPriceDouble()}<br>
     Time: ${sessionScope.currentReceipt.getDate()}<br>
     <form action="controller" method="post">
@@ -22,6 +23,6 @@
     <form action="controller" method="post">
         <input type="hidden" name="command" value="confirmReceipt">
         <input type="submit" value="Confirm receipt">
-    </form>
+</form>
 </body>
 </html>

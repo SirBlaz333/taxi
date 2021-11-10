@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.Serebriakov.database.SQLQuery.CarQuery.*;
 
@@ -29,11 +31,11 @@ public class CarDAOImpl implements CarDAO {
     @Override
     public Car findCar(int passengers, Car_types type) throws SQLException {
         Car car = null;
-        int type_id = findCarTypeId(type);
+        int typeId = findCarTypeId(type);
         try(Connection connection = dbManager.getConnection();
             PreparedStatement ps = connection.prepareStatement(FIND_AVAILABLE_CAR)){
             ps.setInt(1, passengers);
-            ps.setInt(2, type_id);
+            ps.setInt(2, typeId);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 car = new Car();
@@ -74,6 +76,25 @@ public class CarDAOImpl implements CarDAO {
             }
         }
         return price;
+    }
+
+    @Override
+    public List<Car> findCarList(int passengers, Car_types type) throws SQLException {
+        List<Car> cars = new ArrayList<>();
+        int currentAmountOfPassengers = passengers;
+        while(passengers > 0){
+            Car car = findCar(currentAmountOfPassengers, type);
+            if(car == null){
+                currentAmountOfPassengers--;
+            } else {
+                cars.add(car);
+                passengers -= car.getMaxPassengers();
+            }
+            if(currentAmountOfPassengers == 0){
+                return null;
+            }
+        }
+        return cars;
     }
 
 }

@@ -3,13 +3,14 @@ package com.Serebriakov.web.command;
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
 import com.Serebriakov.entity.User;
+import com.Serebriakov.web.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-public class LoginCommand implements Command{
+public class LoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {

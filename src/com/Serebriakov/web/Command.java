@@ -1,4 +1,4 @@
-package com.Serebriakov.web.command;
+package com.Serebriakov.web;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

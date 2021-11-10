@@ -7,9 +7,12 @@ input{
     font-size: 115%;
 }
 
-text {
+text.page {
     color: red;
 }
 h1{
     color:green;
+}
+text.error {
+    color: red;
 }

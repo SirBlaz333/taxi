@@ -14,6 +14,6 @@
       <input type="password" name="password"><br>
       <input type="submit" value="Login">
     </form>
-    <a href="create_user.jsp">Sign up</a>
+    <a href="create_user_page.jsp">Sign up</a>
   </body>
 </html>
