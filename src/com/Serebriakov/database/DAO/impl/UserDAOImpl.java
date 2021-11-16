@@ -2,7 +2,7 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DatabaseManager;
-import com.Serebriakov.database.type.Roles;
+import com.Serebriakov.database.type.Role;
 import com.Serebriakov.entity.User;
 
 import java.io.IOException;
@@ -17,10 +17,22 @@ import static com.Serebriakov.database.SQLQuery.UserQuery.*;
 
 public class UserDAOImpl implements UserDAO {
 
-    private DatabaseManager dbManager;
+    private static DatabaseManager dbManager;
+    private static UserDAOImpl userDAO;
 
-    public UserDAOImpl() throws IOException{
+    static {
+        userDAO = null;
+    }
+
+    private UserDAOImpl() throws IOException {
         dbManager = DatabaseManager.getInstance();
+    }
+
+    public static synchronized UserDAOImpl getInstance() throws IOException {
+        if(userDAO == null){
+            userDAO = new UserDAOImpl();
+        }
+        return userDAO;
     }
 
     @Override
@@ -35,7 +47,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                Roles role = getUserRole(roleId);
+                Role role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
         }
@@ -56,7 +68,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                Roles role = getUserRole(roleId);
+                Role role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
         }
@@ -64,8 +76,8 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Roles getUserRole(int roleId) throws SQLException {
-        Roles role = null;
+    public Role getUserRole(int roleId) throws SQLException {
+        Role role = null;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ROLE)){
             preparedStatement.setInt(1, roleId);
@@ -75,7 +87,7 @@ public class UserDAOImpl implements UserDAO {
                 result = rs.getString("role");
             }
             if(result!=null){
-                role = Roles.getRole(result);
+                role = Role.getRole(result);
             }
         }
         return role;
@@ -93,7 +105,7 @@ public class UserDAOImpl implements UserDAO {
                 int roleId = rs.getInt("role_id");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
-                Roles role = getUserRole(roleId);
+                Role role = getUserRole(roleId);
                 User user = new User(id, login, password, email, role);
                 users.add(user);
             }

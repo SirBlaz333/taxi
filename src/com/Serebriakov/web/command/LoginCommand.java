@@ -14,10 +14,11 @@ public class LoginCommand implements Command {
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        UserDAO userDAO = UserDAOImpl.getInstance();
+
         String login = request.getParameter("login");
         String password = request.getParameter("password");
 
-        UserDAO userDAO = new UserDAOImpl();
         User user = userDAO.getUserByLogin(login);
 
         if(user != null && user.getPassword().equals(password)){

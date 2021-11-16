@@ -7,18 +7,18 @@
 </head>
 <body>
 <h1>Your receipt:</h1><br>
-    Receipt id:${sessionScope.currentReceipt.getId()}<br>
-    <c:if test="${sessionScope.amountOfCars != null}">
-        Amount of cars: ${sessionScope.amountOfCars}<br>
+    Receipt id:${currentReceipt.id}<br>
+    <c:if test="${amountOfCars != null}">
+        Amount of cars: ${amountOfCars}<br>
     </c:if>
-    Car type: ${sessionScope.currentReceipt.getCarType()}<br>
-    Amount of passengers: ${sessionScope.currentReceipt.getPassengers()}<br>
-    Departure: ${sessionScope.currentReceipt.getDeparture()}<br>
-    Destination: ${sessionScope.currentReceipt.getDestination()}<br>
-    Length: ${sessionScope.currentReceipt.getLengthDouble()}<br>
-    Price per km for 1 car: ${sessionScope.currentReceipt.getPricePerKm()}<br>
-    Total price: ${sessionScope.currentReceipt.getPriceDouble()}<br>
-    Time: ${sessionScope.currentReceipt.getDate()}<br>
+    Car type: ${currentReceipt.carType}<br>
+    Amount of passengers: ${currentReceipt.passengers}<br>
+    Departure: ${currentReceipt.departure}<br>
+    Destination: ${currentReceipt.destination}<br>
+    Length: ${currentReceipt.lengthDouble}<br>
+    Price per km for 1 car: ${currentReceipt.pricePerKm}<br>
+    Total price: ${currentReceipt.priceDouble}<br>
+    Time: ${currentReceipt.time}<br>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="deleteReceipt">
         <input type="submit" value="Delete receipt">

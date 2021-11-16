@@ -48,6 +48,36 @@ CREATE UNIQUE INDEX `email_UNIQUE` ON `taxi`.`users` (`email` ASC) VISIBLE;
 
 
 -- -----------------------------------------------------
+-- Table `taxi`.`receipt_states`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`receipt_states` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`receipt_states` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `state` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `taxi`.`receipts`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`receipts` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`receipts` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `price` INT NOT NULL,
+  `length` INT NOT NULL,
+  `destination` VARCHAR(45) NOT NULL,
+  `departure` VARCHAR(45) NOT NULL,
+  `date` VARCHAR(20) NOT NULL,
+  `receipt_state_id` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `taxi`.`car_states`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `taxi`.`car_states` ;
@@ -86,37 +116,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `taxi`.`receipt_states`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `taxi`.`receipt_states` ;
-
-CREATE TABLE IF NOT EXISTS `taxi`.`receipt_states` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `state` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `taxi`.`receipts`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `taxi`.`receipts` ;
-
-CREATE TABLE IF NOT EXISTS `taxi`.`receipts` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `car_id` INT NOT NULL,
-  `price` INT NOT NULL,
-  `length` INT NOT NULL,
-  `destination` VARCHAR(45) NOT NULL,
-  `departure` VARCHAR(45) NOT NULL,
-  `date` VARCHAR(20) NOT NULL,
-  `receipt_state_id` INT NOT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `taxi`.`users_has_receipt`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `taxi`.`users_has_receipt` ;
@@ -139,6 +138,18 @@ CREATE TABLE IF NOT EXISTS `taxi`.`tariffs` (
   `price_for_km` INT NOT NULL,
   `length` INT NOT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `taxi`.`receipts_has_cars`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `taxi`.`receipts_has_cars` ;
+
+CREATE TABLE IF NOT EXISTS `taxi`.`receipts_has_cars` (
+  `receipts_id` INT NOT NULL,
+  `cars_id` INT NOT NULL,
+  PRIMARY KEY (`receipts_id`, `cars_id`))
 ENGINE = InnoDB;
 
 

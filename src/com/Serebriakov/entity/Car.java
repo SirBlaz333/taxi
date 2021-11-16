@@ -1,13 +1,13 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.state.Car_states;
-import com.Serebriakov.database.type.Car_types;
+import com.Serebriakov.database.state.Car_state;
+import com.Serebriakov.database.type.Car_type;
 
 public class Car {
     private int id;
     private int maxPassengers;
-    private Car_types type;
-    private Car_states state;
+    private Car_type type;
+    private Car_state state;
 
     public int getId() {
         return id;
@@ -25,19 +25,19 @@ public class Car {
         this.maxPassengers = maxPassengers;
     }
 
-    public Car_types getType() {
+    public Car_type getType() {
         return type;
     }
 
-    public void setType(Car_types type) {
+    public void setType(Car_type type) {
         this.type = type;
     }
 
-    public Car_states getState() {
+    public Car_state getState() {
         return state;
     }
 
-    public void setState(Car_states state) {
+    public void setState(Car_state state) {
         this.state = state;
     }
 }

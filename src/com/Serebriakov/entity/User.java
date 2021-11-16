@@ -1,6 +1,6 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.type.Roles;
+import com.Serebriakov.database.type.Role;
 
 public class User {
 
@@ -8,11 +8,11 @@ public class User {
     private String login;
     private String password;
     private String email;
-    private Roles role;
+    private Role role;
 
     private User(){}
 
-    public User(int id, String login, String password, String email, Roles role) {
+    public User(int id, String login, String password, String email, Role role) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -20,7 +20,7 @@ public class User {
         this.role = role;
     }
 
-    public static User createUser(String login, String password, String email, Roles role){
+    public static User createUser(String login, String password, String email, Role role){
         User user = new User();
         user.setLogin(login);
         user.setPassword(password);
@@ -32,7 +32,7 @@ public class User {
     public static User getUser(String login){
         User user = new User();
         user.setLogin(login);
-        user.setRole(Roles.USER);
+        user.setRole(Role.USER);
         return user;
     }
 
@@ -40,7 +40,7 @@ public class User {
         this.login = login;
     }
 
-    public void setRole(Roles role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -56,7 +56,7 @@ public class User {
         return id;
     }
 
-    public Roles getRole() {
+    public Role getRole() {
         return role;
     }
 

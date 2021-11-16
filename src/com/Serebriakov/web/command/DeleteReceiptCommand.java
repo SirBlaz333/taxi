@@ -15,10 +15,12 @@ public class DeleteReceiptCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
         Receipt receipt = (Receipt) request.getSession().getAttribute("currentReceipt");
-        ReceiptDAO receiptDAO = new ReceiptDAOImpl();
+        ReceiptDAO receiptDAO = ReceiptDAOImpl.getInstance();
         if(receipt!=null){
             receiptDAO.deleteReceipt(receipt.getId());
             request.getSession().removeAttribute("currentReceipt");
+            request.getSession().removeAttribute("NoSuchCarError");
+            request.getSession().removeAttribute("amountOfCars");
             return "user_page.jsp";
         }
         request.getSession().setAttribute("errorMessage", "There is such receipt. Try make it again");

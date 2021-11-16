@@ -1,10 +1,10 @@
 package com.Serebriakov.database.state;
 
-public enum Car_states {
+public enum Car_state {
     AVAILABLE,
     ON_TRIP,
     NOT_ACTIVE;
-    public static Car_states getState(String state){
+    public static Car_state getState(String state){
         switch (state){
             case "available to order":
                 return AVAILABLE;

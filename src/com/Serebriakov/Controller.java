@@ -2,7 +2,7 @@ package com.Serebriakov;
 
 
 import com.Serebriakov.web.Command;
-import com.Serebriakov.web.command.CommandContainer;
+import com.Serebriakov.web.command.container.CommandContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

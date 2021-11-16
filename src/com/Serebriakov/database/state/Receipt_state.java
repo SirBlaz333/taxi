@@ -1,10 +1,10 @@
 package com.Serebriakov.database.state;
 
-public enum Receipt_states {
+public enum Receipt_state {
     CREATED,
     CONFIRMED,
     DONE;
-    public static Receipt_states getState(String state){
+    public static Receipt_state getState(String state){
         switch (state){
             case "created":
                 return CREATED;
@@ -17,7 +17,7 @@ public enum Receipt_states {
         }
     }
 
-    public static String getStringState(Receipt_states state){
+    public static String getStringState(Receipt_state state){
         switch (state){
             case CREATED:
                 return "created";

@@ -9,11 +9,11 @@
     <text class="error">
         Error!!!
         <br>
-        ${sessionScope.errorMessage}
+        ${errorMessage}
     </text>
     <br>
     <c:choose>
-        <c:when test="${sessionScope.currentUser != null}">
+        <c:when test="${currentUser != null}">
             <a href="user_page.jsp">Go back to user page</a>
         </c:when>
         <c:otherwise>

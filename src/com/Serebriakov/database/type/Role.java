@@ -1,9 +1,9 @@
 package com.Serebriakov.database.type;
 
-public enum Roles {
+public enum Role {
     USER,
     ADMIN;
-    public static Roles getRole(String role){
+    public static Role getRole(String role){
         if(role.equals("user")){
             return USER;
         }

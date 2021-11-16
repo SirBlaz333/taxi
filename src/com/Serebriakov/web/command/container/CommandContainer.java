@@ -1,6 +1,7 @@
-package com.Serebriakov.web.command;
+package com.Serebriakov.web.command.container;
 
 import com.Serebriakov.web.Command;
+import com.Serebriakov.web.command.*;
 
 import java.util.HashMap;
 
@@ -15,8 +16,8 @@ public class CommandContainer {
         commands.put("createReceipt", new CreateReceiptCommand());
         commands.put("confirmReceipt", new ConfirmReceiptCommand());
         commands.put("deleteReceipt", new DeleteReceiptCommand());
-        commands.put("chooseSeveralCars", new ChooseSeveralCarsCommand());
-        commands.put("chooseCarsWithAnotherType", new ChooseCarsWithAnotherTypeCommand());
+        commands.put("chooseSeveralCars", new SeveralCarsWithSameTypeCommand());
+        commands.put("chooseCarsWithAnotherType", new OptionsCarsWithAnotherTypeCommand());
     }
 
     public static Command getCommand(String command){

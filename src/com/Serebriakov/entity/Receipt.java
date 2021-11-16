@@ -1,19 +1,11 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.DAO.CarDAO;
-import com.Serebriakov.database.DAO.impl.CarDAOImpl;
-import com.Serebriakov.database.state.Receipt_states;
-import com.Serebriakov.database.type.Car_types;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.sql.SQLException;
+import com.Serebriakov.database.state.Receipt_state;
 
 public class Receipt {
 
     private int id;
     private int userId;
-    private int carId;
     private int price;
     private int length;
     private double priceDouble;
@@ -21,10 +13,10 @@ public class Receipt {
     private int pricePerKm;
     private String destination;
     private String departure;
-    private String date;
+    private String time;
     private String carType;
     private int passengers;
-    private Receipt_states state;
+    private Receipt_state state;
 
     public int getPricePerKm() {
         return pricePerKm;
@@ -48,14 +40,6 @@ public class Receipt {
 
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public int getCarId() {
-        return carId;
-    }
-
-    public void setCarId(int carId) {
-        this.carId = carId;
     }
 
     public int getPrice() {
@@ -116,39 +100,36 @@ public class Receipt {
         this.departure = departure;
     }
 
-    public String getDate() {
-        return date;
+    public String getTime() {
+        return time;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public Receipt_states getState() {
+    public Receipt_state getState() {
         return state;
     }
 
-    public void setState(Receipt_states state) {
+    public void setState(Receipt_state state) {
         this.state = state;
     }
 
-    public static Receipt createReceipt(User user, Car car, String carType, int length, String date, int passengers, String departure, String destination) throws IOException, SQLException {
-        CarDAO carDAO = new CarDAOImpl();
-        Receipt receipt = new Receipt();
-        receipt.setCarType(carType);
-        receipt.setPassengers(passengers);
-        receipt.setUserId(user.getId());
-        if(car != null){
-            receipt.setCarId(car.getId());
-        }
-        receipt.setDeparture(departure);
-        receipt.setDestination(destination);
-        receipt.setDate(date);
-        receipt.setLength(length);
-        receipt.setPricePerKm(carDAO.findPrice(Car_types.getType(carType), length));
-        receipt.setPrice(receipt.getPricePerKm()*length);
-        receipt.setState(Receipt_states.CREATED);
-
-        return receipt;
-    }
+//    public static Receipt createReceipt(User user, String carType, int length, String date, int passengers, String departure, String destination) throws IOException, SQLException {
+//        CarDAO carDAO = CarDAOImpl.getInstance();
+//        Receipt receipt = new Receipt();
+//        receipt.setCarType(carType);
+//        receipt.setPassengers(passengers);
+//        receipt.setUserId(user.getId());
+//        receipt.setDeparture(departure);
+//        receipt.setDestination(destination);
+//        receipt.setTime(date);
+//        receipt.setLength(length);
+//        receipt.setPricePerKm(carDAO.findPrice(Car_types.getType(carType), length));
+//        receipt.setPrice(receipt.getPricePerKm()*length);
+//        receipt.setState(Receipt_states.CREATED);
+//
+//        return receipt;
+//    }
 }

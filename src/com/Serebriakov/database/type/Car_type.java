@@ -1,10 +1,10 @@
 package com.Serebriakov.database.type;
 
-public enum Car_types {
+public enum Car_type {
     PUBLIC_HIRE_TAXI,
     MINICAB,
     MINIBUS;
-    public static Car_types getType(String car){
+    public static Car_type getType(String car){
         switch (car){
             case "Public hire taxi":
                 return PUBLIC_HIRE_TAXI;
@@ -16,7 +16,7 @@ public enum Car_types {
                 return null;
         }
     }
-    public static String getStringType(Car_types type){
+    public static String getStringType(Car_type type){
         switch (type){
             case PUBLIC_HIRE_TAXI:
                 return "Public hire taxi";
