@@ -39,7 +39,7 @@ INSERT INTO users VALUES (DEFAULT, 'petrov', 'petrov', 'petrov@gmail.com', 1);
 INSERT INTO users VALUES (DEFAULT, 'destroyer2007', 'asdf', 'asdf@mail.ru',  1);
 INSERT INTO users VALUES (DEFAULT, 'blaz333', '123', 'magicpechenka765@gmail.com', 2);
 INSERT INTO users VALUES (DEFAULT, 'admin', 'admin', '123@gmail.com' , 2);
-INSERT INTO users VALUES (DEFAULT, '123', '123', '1@gmail.com' , 2);
+INSERT INTO users VALUES (DEFAULT, '123', '123', '1@gmail.com' , 1);
 
 INSERT INTO receipt_states VALUES (1, 'created');
 INSERT INTO receipt_states VALUES (2, 'confirmed');

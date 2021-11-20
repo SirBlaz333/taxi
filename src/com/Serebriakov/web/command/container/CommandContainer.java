@@ -18,6 +18,7 @@ public class CommandContainer {
         commands.put("deleteReceipt", new DeleteReceiptCommand());
         commands.put("chooseSeveralCars", new SeveralCarsWithSameTypeCommand());
         commands.put("chooseCarsWithAnotherType", new OptionsCarsWithAnotherTypeCommand());
+        commands.put("updateReceipts", new UpdateReceiptsListCommand());
     }
 
     public static Command getCommand(String command){

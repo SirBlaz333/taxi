@@ -2,7 +2,7 @@ package com.Serebriakov.web.command;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
-import com.Serebriakov.database.type.Role;
+import com.Serebriakov.entity.type.Role;
 import com.Serebriakov.entity.User;
 import com.Serebriakov.web.Command;
 

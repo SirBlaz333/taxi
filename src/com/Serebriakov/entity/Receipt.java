@@ -1,6 +1,6 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.state.Receipt_state;
+import com.Serebriakov.entity.state.Receipt_state;
 
 public class Receipt {
 
@@ -112,24 +112,12 @@ public class Receipt {
         return state;
     }
 
+    public String getStateString(){
+        return Receipt_state.getStringState(state);
+    }
+
     public void setState(Receipt_state state) {
         this.state = state;
     }
 
-//    public static Receipt createReceipt(User user, String carType, int length, String date, int passengers, String departure, String destination) throws IOException, SQLException {
-//        CarDAO carDAO = CarDAOImpl.getInstance();
-//        Receipt receipt = new Receipt();
-//        receipt.setCarType(carType);
-//        receipt.setPassengers(passengers);
-//        receipt.setUserId(user.getId());
-//        receipt.setDeparture(departure);
-//        receipt.setDestination(destination);
-//        receipt.setTime(date);
-//        receipt.setLength(length);
-//        receipt.setPricePerKm(carDAO.findPrice(Car_types.getType(carType), length));
-//        receipt.setPrice(receipt.getPricePerKm()*length);
-//        receipt.setState(Receipt_states.CREATED);
-//
-//        return receipt;
-//    }
 }

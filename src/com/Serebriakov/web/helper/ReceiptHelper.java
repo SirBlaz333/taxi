@@ -2,8 +2,8 @@ package com.Serebriakov.web.helper;
 
 import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.impl.CarDAOImpl;
-import com.Serebriakov.database.state.Receipt_state;
-import com.Serebriakov.database.type.Car_type;
+import com.Serebriakov.entity.state.Receipt_state;
+import com.Serebriakov.entity.type.Car_type;
 import com.Serebriakov.entity.Receipt;
 import com.Serebriakov.entity.User;
 

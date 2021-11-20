@@ -1,7 +1,7 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.state.Car_state;
-import com.Serebriakov.database.type.Car_type;
+import com.Serebriakov.entity.state.Car_state;
+import com.Serebriakov.entity.type.Car_type;
 
 public class Car {
     private int id;

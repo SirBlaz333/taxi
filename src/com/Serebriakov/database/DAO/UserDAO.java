@@ -1,6 +1,6 @@
 package com.Serebriakov.database.DAO;
 
-import com.Serebriakov.database.type.Role;
+import com.Serebriakov.entity.type.Role;
 import com.Serebriakov.entity.User;
 
 import java.sql.SQLException;

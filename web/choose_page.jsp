@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <text class="error">${NoSuchCarError}</text>
+    <text class="error">${NoSuchCarError} (${currentReceipt.carType})</text>
     <br><br>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="chooseSeveralCars">
@@ -15,6 +15,10 @@
     <form action="controller" method="post">
         <input type="hidden" name="command" value="chooseCarsWithAnotherType">
         <input type="submit" value="Choose cars with another type">
+    </form>
+    <form action="controller" method="post">
+        <input type="hidden" name="command" value="deleteReceipt">
+        <input type="submit" value="Delete receipt">
     </form>
 </body>
 </html>

@@ -1,14 +1,18 @@
 package com.Serebriakov.web.command;
 
 import com.Serebriakov.database.DAO.UserDAO;
+import com.Serebriakov.database.DAO.impl.ReceiptDAOImpl;
 import com.Serebriakov.database.DAO.impl.UserDAOImpl;
+import com.Serebriakov.entity.Receipt;
 import com.Serebriakov.entity.User;
+import com.Serebriakov.entity.type.Role;
 import com.Serebriakov.web.Command;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class LoginCommand implements Command {
 
@@ -23,6 +27,11 @@ public class LoginCommand implements Command {
 
         if(user != null && user.getPassword().equals(password)){
             request.getSession().setAttribute("currentUser", user);
+            if(user.getRoleString().equals("admin")){
+                List<Receipt> receipts = ReceiptDAOImpl.getInstance().getAllReceipts();
+                request.getSession().setAttribute("Receipts", receipts);
+                request.getSession().setAttribute("RequiredReceipts", receipts);
+            }
             return "user_page.jsp";
         }
 

@@ -1,6 +1,6 @@
 package com.Serebriakov.entity;
 
-import com.Serebriakov.database.type.Role;
+import com.Serebriakov.entity.type.Role;
 
 public class User {
 
@@ -58,6 +58,10 @@ public class User {
 
     public Role getRole() {
         return role;
+    }
+
+    public String getRoleString(){
+        return Role.getStringRole(role);
     }
 
     public String getPassword() {

@@ -3,7 +3,7 @@ package com.Serebriakov.database.DAO.impl;
 import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DatabaseManager;
-import com.Serebriakov.database.state.Receipt_state;
+import com.Serebriakov.entity.state.Receipt_state;
 import com.Serebriakov.entity.Car;
 import com.Serebriakov.entity.Receipt;
 
@@ -117,8 +117,22 @@ public class ReceiptDAOImpl implements ReceiptDAO {
         receipt.setLength(rs.getInt(4));
         receipt.setDeparture(rs.getString(5));
         receipt.setDestination(rs.getString(6));
-        receipt.setState(Receipt_state.getState(rs.getString(7)));
+        receipt.setTime(rs.getString(7));
+        receipt.setState(Receipt_state.getState(getState(rs.getInt(8))));
         return receipt;
+    }
+
+    private String getState(int stateId) throws SQLException {
+        String state = null;
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_STATE)){
+            ps.setInt(1, stateId);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                state = rs.getString("state");
+            }
+        }
+        return state;
     }
 
     private List<Integer> getCarsId(int id) throws SQLException {
@@ -158,5 +172,18 @@ public class ReceiptDAOImpl implements ReceiptDAO {
                 carDAO.confirmCarForTrip(carId);
             }
         }
+    }
+
+    @Override
+    public List<Receipt> getAllReceipts() throws SQLException {
+        List<Receipt> receipts = new ArrayList<>();
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_ALL_RECEIPTS)){
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                receipts.add(setReceipt(rs));
+            }
+        }
+        return receipts;
     }
 }

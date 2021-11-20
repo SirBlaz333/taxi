@@ -11,6 +11,7 @@ public abstract class SQLQuery {
     }
 
     public static class ReceiptQuery{
+        public static final String GET_ALL_RECEIPTS = "SELECT * FROM receipts;";
         public static final String ADD_RECEIPT = "INSERT INTO receipts VALUES(DEFAULT, ?, ?, ?, ?, ?, ?, ?)";
         public static final String GET_RECEIPT_BY_ID = "SELECT * FROM receipts WHERE id = ?";
         public static final String GET_RECEIPTS_BY_USER_ID = "SELECT * FROM receipts WHERE user_id = ?";
@@ -21,6 +22,7 @@ public abstract class SQLQuery {
         public static final String ADD_CARS_TO_RECEIPT = "INSERT receipts_has_cars VALUES (?, ?);";
         public static final String FIND_CARS_BY_RECEIPT_ID = "SELECT cars_id FROM receipts_has_cars WHERE receipts_id = ?;";
         public static final String DELETE_CARS_FROM_RECEIPT = "DELETE FROM receipts_has_cars WHERE receipts_id = ?;";
+        public static final String GET_STATE= "SELECT state FROM receipt_states WHERE id = ?";
     }
 
     public static class CarQuery{

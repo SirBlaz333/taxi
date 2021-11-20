@@ -1,4 +1,4 @@
-package com.Serebriakov.database.type;
+package com.Serebriakov.entity.type;
 
 public enum Car_type {
     PUBLIC_HIRE_TAXI,

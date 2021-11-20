@@ -4,7 +4,7 @@ import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DAO.impl.CarDAOImpl;
 import com.Serebriakov.database.DAO.impl.ReceiptDAOImpl;
-import com.Serebriakov.database.type.Car_type;
+import com.Serebriakov.entity.type.Car_type;
 import com.Serebriakov.entity.Car;
 import com.Serebriakov.entity.Receipt;
 import com.Serebriakov.entity.User;
@@ -43,7 +43,7 @@ public class CreateReceiptCommand implements Command {
         }
 
         if(car == null){
-            request.getSession().setAttribute("NoSuchCarError", "There are no available cars with this type");
+            request.getSession().setAttribute("NoSuchCarError", "There are no available taxi with this type");
             return "choose_page.jsp";
         }
 

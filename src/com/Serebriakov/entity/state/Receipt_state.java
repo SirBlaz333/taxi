@@ -1,4 +1,4 @@
-package com.Serebriakov.database.state;
+package com.Serebriakov.entity.state;
 
 public enum Receipt_state {
     CREATED,

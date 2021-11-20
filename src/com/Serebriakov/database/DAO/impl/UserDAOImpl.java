@@ -2,7 +2,7 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
 import com.Serebriakov.database.DatabaseManager;
-import com.Serebriakov.database.type.Role;
+import com.Serebriakov.entity.type.Role;
 import com.Serebriakov.entity.User;
 
 import java.io.IOException;

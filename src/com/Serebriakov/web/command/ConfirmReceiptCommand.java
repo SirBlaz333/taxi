@@ -10,7 +10,9 @@ import com.Serebriakov.web.Command;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.SecureRandom;
 import java.sql.SQLException;
+import java.util.Random;
 
 public class ConfirmReceiptCommand implements Command {
 
@@ -23,7 +25,10 @@ public class ConfirmReceiptCommand implements Command {
             request.getSession().removeAttribute("currentReceipt");
             request.getSession().removeAttribute("NoSuchCarError");
             request.getSession().removeAttribute("amountOfCars");
-            return "user_page.jsp";
+            Random random = new SecureRandom();
+            int time = random.nextInt(10)+5;
+            request.getSession().setAttribute("ExpectedWaitingTime", time);
+            return "expected_waiting_time.jsp";
         }
         request.getSession().setAttribute("errorMessage", "This receipt is unavailable. Make new one");
         return "error_page.jsp";

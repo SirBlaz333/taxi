@@ -15,5 +15,5 @@ public interface ReceiptDAO {
     int getStateId(String state) throws SQLException;
     void deleteReceipt(int id) throws SQLException;
     void confirmReceipt(int id) throws SQLException, IOException;
-
+    List<Receipt> getAllReceipts() throws SQLException;
 }

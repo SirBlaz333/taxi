@@ -6,13 +6,60 @@ input{
     text-align: center;
     font-size: 115%;
 }
+input.field{
 
+}
 text.page {
+    color: red;
+}
+text.right{
+    margin-left: 10%;
+}
+text.error {
     color: red;
 }
 h1{
     color:green;
 }
-text.error {
-    color: red;
+h1.name{
+    color: green;
+    margin: 0;
+    font-size: 115%;
+}
+table{
+    width: 100%;
+}
+
+div.list {
+    height: 500px;
+    width: 50%;
+    margin-left: 25%;
+    border: 1px solid #C1C1C1;
+    overflow-y: scroll;
+}
+div.center{
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+}
+div.name{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+div.button{
+    display: none;
+}
+input.radio:checked+div.button{
+    font-size: 50%;
+    display: inline-block;
+}
+select{
+    font-size: 100%;
+}
+form.input {
+    display: inline-block;
+}
+
+*{
+    font-family: 'Exo 2', sans-serif;
 }

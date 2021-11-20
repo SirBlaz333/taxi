@@ -4,7 +4,7 @@ import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DAO.impl.CarDAOImpl;
 import com.Serebriakov.database.DAO.impl.ReceiptDAOImpl;
-import com.Serebriakov.database.type.Car_type;
+import com.Serebriakov.entity.type.Car_type;
 import com.Serebriakov.entity.Car;
 import com.Serebriakov.entity.Receipt;
 import com.Serebriakov.web.Command;
@@ -27,7 +27,7 @@ public class SeveralCarsWithSameTypeCommand implements Command {
 
         List<Car> cars = carDAO.findCarList(passengers, Car_type.getType(carType));
         if(cars == null){
-            request.getSession().setAttribute("NoSuchCarError", "There are no available cars with such type.<br> Please choose another option");
+            request.getSession().setAttribute("NoSuchCarError", "There are no available cars with this type.");
             return "choose_page.jsp";
         }
         request.getSession().setAttribute("amountOfCars", cars.size());

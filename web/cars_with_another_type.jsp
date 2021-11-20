@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="listStyle.css">
 </head>
 <body>
-    <text>Choose another taxi type:</text>
+    <h1>Choose another taxi type:</h1>
     <c:forEach var="carType" items="${carTypeOptions}">
         <form action="controller" method="post">
             <input type="hidden" name="command" value="createReceipt">
@@ -14,6 +14,7 @@
             <input type="submit" value="${carType}">
         </form>
     </c:forEach>
+    <br><br>
     <a href="choose_page.jsp">Go back</a>
 </body>
 </html>
