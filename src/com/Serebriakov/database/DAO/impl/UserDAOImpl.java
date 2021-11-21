@@ -1,11 +1,13 @@
 package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
+import com.Serebriakov.entity.User;
 import com.Serebriakov.database.DatabaseManager;
 import com.Serebriakov.entity.type.Role;
-import com.Serebriakov.entity.User;
+import com.Serebriakov.exception.DBException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,7 @@ import static com.Serebriakov.database.SQLQuery.UserQuery.*;
 
 public class UserDAOImpl implements UserDAO {
 
+    private static Logger logger = LogManager.getLogger("DBError");
     private static DatabaseManager dbManager;
     private static UserDAOImpl userDAO;
 
@@ -24,11 +27,11 @@ public class UserDAOImpl implements UserDAO {
         userDAO = null;
     }
 
-    private UserDAOImpl() throws IOException {
+    private UserDAOImpl(){
         dbManager = DatabaseManager.getInstance();
     }
 
-    public static synchronized UserDAOImpl getInstance() throws IOException {
+    public static synchronized UserDAOImpl getInstance(){
         if(userDAO == null){
             userDAO = new UserDAOImpl();
         }
@@ -36,7 +39,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public User getUserByLogin(String login) throws SQLException {
+    public User getUserByLogin(String login) throws DBException {
         User user = null;
         try(Connection connection = dbManager.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN)){
@@ -50,6 +53,9 @@ public class UserDAOImpl implements UserDAO {
                 Role role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException(e.getMessage());
         }
         return user;
     }
@@ -57,7 +63,7 @@ public class UserDAOImpl implements UserDAO {
 
 
     @Override
-    public User getUserById(int id) throws SQLException {
+    public User getUserById(int id) throws DBException {
         User user = null;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID)){
@@ -71,12 +77,15 @@ public class UserDAOImpl implements UserDAO {
                 Role role = getUserRole(roleId);
                 user = new User(id, login, password, email, role);
             }
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException(e.getMessage());
         }
         return user;
     }
 
     @Override
-    public Role getUserRole(int roleId) throws SQLException {
+    public Role getUserRole(int roleId) throws DBException {
         Role role = null;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_ROLE)){
@@ -89,12 +98,15 @@ public class UserDAOImpl implements UserDAO {
             if(result!=null){
                 role = Role.getRole(result);
             }
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException(e.getMessage());
         }
         return role;
     }
 
     @Override
-    public List<User> getAllUsers() throws SQLException {
+    public List<User> getAllUsers() throws DBException {
         List<User> users = new ArrayList<>();
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS)){
@@ -109,18 +121,25 @@ public class UserDAOImpl implements UserDAO {
                 User user = new User(id, login, password, email, role);
                 users.add(user);
             }
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException(e.getMessage());
         }
         return users;
     }
 
     @Override
-    public void addUser(User user) throws SQLException {
-        Connection connection = dbManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER);
-        preparedStatement.setString(1, user.getLogin());
-        preparedStatement.setString(2, user.getPassword());
-        preparedStatement.setString(3, user.getEmail());
-        preparedStatement.execute();
+    public void addUser(User user) throws DBException {
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(ADD_USER)){
+            preparedStatement.setString(1, user.getLogin());
+            preparedStatement.setString(2, user.getPassword());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.execute();
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException(e.getMessage());
+        }
     }
 
     @Override

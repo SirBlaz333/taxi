@@ -1,8 +1,9 @@
 package com.Serebriakov.web.command;
 
-import com.Serebriakov.entity.type.Car_type;
 import com.Serebriakov.entity.Receipt;
-import com.Serebriakov.web.Command;
+import com.Serebriakov.entity.type.Car_type;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OptionsCarsWithAnotherTypeCommand implements Command {
+    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
+
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Receipt receipt = (Receipt) request.getSession().getAttribute("currentReceipt");

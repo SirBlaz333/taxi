@@ -1,8 +1,11 @@
-package com.Serebriakov;
+package com.Serebriakov.web;
 
 
-import com.Serebriakov.web.Command;
+import com.Serebriakov.exception.DBException;
 import com.Serebriakov.web.command.container.CommandContainer;
+import com.Serebriakov.web.command.Command;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,10 +13,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet("/controller")
 public class Controller extends HttpServlet {
+    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -22,8 +25,9 @@ public class Controller extends HttpServlet {
         Command command = getCommand(req);
         try{
             address = command.execute(req, resp);
-        } catch (SQLException e) {
+        } catch (DBException  e) {
             req.setAttribute("errorMessage", e.getMessage());
+            logger.error(e.getMessage());
         }
         req.getRequestDispatcher(address).forward(req, resp);
     }
@@ -35,8 +39,9 @@ public class Controller extends HttpServlet {
         Command command = getCommand(req);
         try{
             address = command.execute(req, resp);
-        } catch (SQLException e) {
+        } catch (DBException  e) {
             req.setAttribute("errorMessage", e.getMessage());
+            logger.error(e.getMessage());
         }
         resp.sendRedirect(address);
     }

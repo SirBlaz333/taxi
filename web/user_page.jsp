@@ -18,7 +18,7 @@
                     <input class="radio" name="filter" type="radio" value="User">
                         User
                         <div class="button">
-                            <input name="userName" placeholder="Enter username">
+                            <input name="userName" maxlength="32" placeholder="Enter username">
                         </div>
                     </input>
                     <input class="radio" name="filter" type="radio" value="Date">
@@ -75,10 +75,10 @@
                 <input name="passengers" type="number" min="1" max="100" required>
                 <br><br>
                 <text class="page">Enter departure</text>
-                <input name="departure" type="text" required>
+                <input name="departure" type="text" maxlength="45" required>
                 <br><br>
                 <text class="page">Enter destination</text>
-                <input name="destination" type="text" required>
+                <input name="destination" type="text" maxlength="45" required>
                 <br><br>
                 <input type="submit" value="Submit">
             </form>

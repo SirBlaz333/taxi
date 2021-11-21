@@ -34,12 +34,9 @@ INSERT INTO cars VALUES (DEFAULT, 30, 3, 1);
 INSERT INTO cars VALUES (DEFAULT, 6, 2, 1);
 INSERT INTO cars VALUES (DEFAULT, 8, 2, 1);
 
-INSERT INTO users VALUES (DEFAULT, 'ivanov', 'ivanov', 'ivanov@gmail.com', 1);
-INSERT INTO users VALUES (DEFAULT, 'petrov', 'petrov', 'petrov@gmail.com', 1);
-INSERT INTO users VALUES (DEFAULT, 'destroyer2007', 'asdf', 'asdf@mail.ru',  1);
-INSERT INTO users VALUES (DEFAULT, 'blaz333', '123', 'magicpechenka765@gmail.com', 2);
-INSERT INTO users VALUES (DEFAULT, 'admin', 'admin', '123@gmail.com' , 2);
-INSERT INTO users VALUES (DEFAULT, '123', '123', '1@gmail.com' , 1);
+INSERT INTO users VALUES (DEFAULT, 'blaz333', '148151154', 'magicpechenka765@gmail.com', 2);
+INSERT INTO users VALUES (DEFAULT, 'admin', '292301328316331', '123@gmail.com' , 2);
+INSERT INTO users VALUES (DEFAULT, '123', '148151154', '1@gmail.com' , 1);
 
 INSERT INTO receipt_states VALUES (1, 'created');
 INSERT INTO receipt_states VALUES (2, 'confirmed');

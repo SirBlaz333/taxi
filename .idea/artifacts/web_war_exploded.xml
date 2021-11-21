@@ -12,6 +12,8 @@
           <element id="file-copy" path="$PROJECT_DIR$/../../mysql-connector-java-8.0.16/mysql-connector-java-8.0.16.jar" />
           <element id="library" level="project" name="tomcat-api" />
           <element id="file-copy" path="$PROJECT_DIR$/../../jstl-1.2.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../apache-log4j-2.14.1-bin/log4j-api-2.14.1.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../apache-log4j-2.14.1-bin/log4j-core-2.14.1.jar" />
         </element>
       </element>
     </root>

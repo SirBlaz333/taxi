@@ -1,11 +1,14 @@
-package com.Serebriakov.web.helper;
+package com.Serebriakov.util;
 
+import com.Serebriakov.entity.Receipt;
+import com.Serebriakov.entity.User;
 import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.impl.CarDAOImpl;
 import com.Serebriakov.entity.state.Receipt_state;
 import com.Serebriakov.entity.type.Car_type;
-import com.Serebriakov.entity.Receipt;
-import com.Serebriakov.entity.User;
+import com.Serebriakov.exception.DBException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -14,8 +17,10 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class ReceiptHelper {
-    public static Receipt getReceipt(HttpServletRequest request, User user) throws IOException, SQLException {
+public class ReceiptCreater {
+    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
+
+    public static Receipt getReceipt(HttpServletRequest request, User user) throws DBException {
         CarDAO carDAO = CarDAOImpl.getInstance();
         String carType = request.getParameter("car_type");
 

@@ -1,25 +1,27 @@
 package com.Serebriakov.web.command;
 
+import com.Serebriakov.entity.Car;
+import com.Serebriakov.entity.Receipt;
+import com.Serebriakov.entity.User;
+import com.Serebriakov.exception.DBException;
+import com.Serebriakov.util.ReceiptCreater;
 import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DAO.impl.CarDAOImpl;
 import com.Serebriakov.database.DAO.impl.ReceiptDAOImpl;
 import com.Serebriakov.entity.type.Car_type;
-import com.Serebriakov.entity.Car;
-import com.Serebriakov.entity.Receipt;
-import com.Serebriakov.entity.User;
-import com.Serebriakov.web.Command;
-import com.Serebriakov.web.helper.ReceiptHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.sql.SQLException;
 
 public class CreateReceiptCommand implements Command {
+    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
+
 
     @Override
-    public String execute(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+    public String execute(HttpServletRequest request, HttpServletResponse response) throws DBException {
         CarDAO carDAO = CarDAOImpl.getInstance();
         ReceiptDAO receiptDAO = ReceiptDAOImpl.getInstance();
         User user = (User) request.getSession().getAttribute("currentUser");
@@ -36,7 +38,7 @@ public class CreateReceiptCommand implements Command {
             receipt.setPricePerKm(carDAO.findPrice(Car_type.getType(carType), receipt.getLength()));
             receipt.setPrice(receipt.getPricePerKm()*receipt.getLength());
         } else {
-            receipt = ReceiptHelper.getReceipt(request, user);
+            receipt = ReceiptCreater.getReceipt(request, user);
             request.getSession().setAttribute("currentReceipt", receipt);
             int passengers = Integer.parseInt(request.getParameter("passengers"));
             car = carDAO.findCar(passengers, Car_type.getType(carType));
@@ -49,7 +51,6 @@ public class CreateReceiptCommand implements Command {
 
         int id = receiptDAO.addReceipt(receipt, car);
         receipt.setId(id);
-
         return "confirm_receipt_page.jsp";
     }
 }

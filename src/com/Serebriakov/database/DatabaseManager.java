@@ -1,5 +1,9 @@
 package com.Serebriakov.database;
 
+import com.Serebriakov.exception.DBException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +13,7 @@ import java.util.Properties;
 
 public class DatabaseManager {
 
+    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
     private static DatabaseManager dbManager;
     private static String URL;
 
@@ -16,14 +21,21 @@ public class DatabaseManager {
         dbManager = null;
     }
 
-    private DatabaseManager() throws IOException{
+    private DatabaseManager(){
+        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         Properties properties = new Properties();
-        //properties.load(new FileInputStream("connection.properties"));
-        //URL = properties.getProperty("url");
-        URL = "jdbc:mysql://localhost:3306/taxi?user=root&password=root&serverTimezone=UTC";
+        String fileName = rootPath + "connection.properties";
+        try {
+            properties.load(new FileInputStream(fileName));
+        } catch (IOException e) {
+            logger.error("Error: Cannot find file '" + fileName +"'");
+            logger.debug("'Connection.properties' has been found (" + fileName + ")");
+        }
+        URL = properties.getProperty("url");
+        //URL = "jdbc:mysql://localhost:3306/taxi?user=root&password=root&serverTimezone=UTC";
     }
 
-    public static DatabaseManager getInstance() throws IOException{
+    public static DatabaseManager getInstance(){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
         } catch (ClassNotFoundException e) {
