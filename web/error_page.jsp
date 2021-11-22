@@ -14,10 +14,10 @@
     <br>
     <c:choose>
         <c:when test="${currentUser != null}">
-            <a href="user_page.jsp">Go back to user page</a>
+            <a href="index.jsp">Go back to user page</a>
         </c:when>
         <c:otherwise>
-            <a href="index.jsp">Log in</a>
+            <a href="login.jsp">Log in</a>
         </c:otherwise>
     </c:choose>
 </body>

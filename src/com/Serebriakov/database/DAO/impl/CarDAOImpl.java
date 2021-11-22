@@ -2,15 +2,14 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DatabaseManager;
 import com.Serebriakov.database.SQLQuery;
-import com.Serebriakov.entity.Car;
-import com.Serebriakov.entity.type.Car_type;
+import com.Serebriakov.database.entity.Car;
+import com.Serebriakov.database.entity.type.Car_type;
 import com.Serebriakov.database.DAO.CarDAO;
-import com.Serebriakov.entity.state.Car_state;
+import com.Serebriakov.database.entity.state.Car_state;
 import com.Serebriakov.exception.DBException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,7 +48,7 @@ public class CarDAOImpl implements CarDAO {
             ps.execute();
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot update car's state");
         }
     }
 
@@ -63,7 +62,7 @@ public class CarDAOImpl implements CarDAO {
             ps.execute();
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot confirm car for trip");
         }
     }
 
@@ -96,7 +95,7 @@ public class CarDAOImpl implements CarDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot find car");
         }
         return car;
     }
@@ -113,7 +112,7 @@ public class CarDAOImpl implements CarDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot find car type");
         }
         return id;
     }
@@ -132,7 +131,7 @@ public class CarDAOImpl implements CarDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot find price for trip");
         }
         return price;
     }

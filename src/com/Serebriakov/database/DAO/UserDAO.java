@@ -1,10 +1,9 @@
 package com.Serebriakov.database.DAO;
 
-import com.Serebriakov.entity.User;
-import com.Serebriakov.entity.type.Role;
+import com.Serebriakov.database.entity.User;
+import com.Serebriakov.database.entity.type.Role;
 import com.Serebriakov.exception.DBException;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public interface UserDAO {

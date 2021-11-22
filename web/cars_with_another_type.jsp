@@ -15,6 +15,6 @@
         </form>
     </c:forEach>
     <br><br>
-    <a href="choose_page.jsp">Go back</a>
+    <a href="choose_options.jsp">Go back</a>
 </body>
 </html>

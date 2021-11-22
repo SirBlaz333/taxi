@@ -1,7 +1,7 @@
 package com.Serebriakov.database.DAO;
 
-import com.Serebriakov.entity.Car;
-import com.Serebriakov.entity.Receipt;
+import com.Serebriakov.database.entity.Car;
+import com.Serebriakov.database.entity.Receipt;
 import com.Serebriakov.exception.DBException;
 
 import java.util.List;

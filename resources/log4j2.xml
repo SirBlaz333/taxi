@@ -14,9 +14,11 @@
         <Logger name="DBError" level="error">
             <AppenderRef ref="Console" />
         </Logger>
+        <Logger name="Filter" level="info">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="debug">
             <AppenderRef ref="File"/>
-            <AppenderRef ref="Console" />
         </Root>
     </Loggers>
 </Configuration>

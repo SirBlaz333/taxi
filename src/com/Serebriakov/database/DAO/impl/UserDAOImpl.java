@@ -1,9 +1,9 @@
 package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DAO.UserDAO;
-import com.Serebriakov.entity.User;
+import com.Serebriakov.database.entity.User;
 import com.Serebriakov.database.DatabaseManager;
-import com.Serebriakov.entity.type.Role;
+import com.Serebriakov.database.entity.type.Role;
 import com.Serebriakov.exception.DBException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get user by login (" + login + ")");
         }
         return user;
     }
@@ -79,7 +79,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get user by id (" + id + ")");
         }
         return user;
     }
@@ -100,7 +100,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get role for user");
         }
         return role;
     }
@@ -123,7 +123,7 @@ public class UserDAOImpl implements UserDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get all users");
         }
         return users;
     }
@@ -138,7 +138,7 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.execute();
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot add user");
         }
     }
 

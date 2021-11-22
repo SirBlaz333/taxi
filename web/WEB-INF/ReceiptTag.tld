@@ -11,7 +11,7 @@
 
     <tag>
         <name>LoginValidation</name>
-        <tag-class>com.Serebriakov.util.tag.LoginValidationTag</tag-class>
+        <tag-class>com.Serebriakov.model.util.tag.LoginValidationTag</tag-class>
         <body-content>empty</body-content>
     </tag>
 

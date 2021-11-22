@@ -148,8 +148,7 @@ DROP TABLE IF EXISTS `taxi`.`receipts_has_cars` ;
 
 CREATE TABLE IF NOT EXISTS `taxi`.`receipts_has_cars` (
   `receipts_id` INT NOT NULL,
-  `cars_id` INT NOT NULL,
-  PRIMARY KEY (`receipts_id`, `cars_id`))
+  `cars_id` INT NOT NULL)
 ENGINE = InnoDB;
 
 

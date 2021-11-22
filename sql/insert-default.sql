@@ -30,8 +30,15 @@ INSERT INTO types VALUES (2, 'Minicab');
 INSERT INTO types VALUES (3, 'Minibus');
 
 INSERT INTO cars VALUES (DEFAULT, 4, 1, 1);
+INSERT INTO cars VALUES (DEFAULT, 4, 1, 1);
+INSERT INTO cars VALUES (DEFAULT, 5, 1, 1);
+INSERT INTO cars VALUES (DEFAULT, 6, 1, 1);
 INSERT INTO cars VALUES (DEFAULT, 30, 3, 1);
+INSERT INTO cars VALUES (DEFAULT, 40, 3, 1);
+INSERT INTO cars VALUES (DEFAULT, 60, 3, 1);
 INSERT INTO cars VALUES (DEFAULT, 6, 2, 1);
+INSERT INTO cars VALUES (DEFAULT, 8, 2, 1);
+INSERT INTO cars VALUES (DEFAULT, 8, 2, 1);
 INSERT INTO cars VALUES (DEFAULT, 8, 2, 1);
 
 INSERT INTO users VALUES (DEFAULT, 'blaz333', '148151154', 'magicpechenka765@gmail.com', 2);
@@ -42,7 +49,15 @@ INSERT INTO receipt_states VALUES (1, 'created');
 INSERT INTO receipt_states VALUES (2, 'confirmed');
 INSERT INTO receipt_states VALUES (3, 'done');
 
-INSERT INTO receipts VALUES (DEFAULT, 1, 100, 5, 'Kharkivskya, 22', 'Kurskya, 58', '2021-11-05 17:15:30', 3);
-INSERT INTO receipts VALUES (DEFAULT, 1, 100, 5, 'Шевченко, 22', 'Лушпы 58', '2021-11-05 17:15:30', 3);
+INSERT INTO receipts VALUES (DEFAULT, 1, 1000, 5, 'Kharkivskya, 22', 'Kurskya, 58', '2021-11-05 13:17:10', 3);
+INSERT INTO receipts VALUES (DEFAULT, 2, 12321, 5, 'Шевченко, 22', 'Лушпы 58', '2021-11-07 13:28:12', 3);
+INSERT INTO receipts VALUES (DEFAULT, 2, 3123, 5, 'Лушпы 58', 'Шевченко, 23', '2021-11-07 17:15:30', 3);
+INSERT INTO receipts VALUES (DEFAULT, 1, 1523, 5, 'Шевченко, 1', 'Лушпы 1', '2021-11-11 13:28:12', 3);
+INSERT INTO receipts VALUES (DEFAULT, 1, 5456, 5, 'Шевченко, 3', 'Лушпы 17', '2021-11-11 17:25:13', 3);
+INSERT INTO receipts VALUES (DEFAULT, 3, 18545, 5, 'Шевченко, 22', 'Лушпы 58', '2021-11-11 18:15:30', 3);
+INSERT INTO receipts VALUES (DEFAULT, 1, 1554, 5, 'Шевченко, 21', 'Лушпы 35', '2021-11-11 18:00:10', 3);
+INSERT INTO receipts VALUES (DEFAULT, 3, 33345, 5, 'Шевченко, 32', 'Лушпы 38', '2021-11-22 17:15:30', 2);
+INSERT INTO receipts VALUES (DEFAULT, 1, 5435, 5, 'Шевченко, 22', 'Лушпы 42', '2021-11-22 17:25:30', 1);
+
 
 INSERT INTO users_has_receipt VALUES (1, 1);

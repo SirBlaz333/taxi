@@ -2,9 +2,9 @@ package com.Serebriakov.database.DAO.impl;
 
 import com.Serebriakov.database.DatabaseManager;
 import com.Serebriakov.database.SQLQuery;
-import com.Serebriakov.entity.Car;
-import com.Serebriakov.entity.Receipt;
-import com.Serebriakov.entity.state.Receipt_state;
+import com.Serebriakov.database.entity.Car;
+import com.Serebriakov.database.entity.Receipt;
+import com.Serebriakov.database.entity.state.Receipt_state;
 import com.Serebriakov.database.DAO.CarDAO;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.exception.DBException;
@@ -59,7 +59,6 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             while(rs.next()){
                 id = rs.getInt("LAST_INSERT_ID()");
             }
-
             for(Car car : cars){
                 carPs.setInt(1, id);
                 carPs.setInt(2, car.getId());
@@ -67,7 +66,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot add receipt");
         }
         return id;
     }
@@ -85,7 +84,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get receipt");
         }
         return receipt;
     }
@@ -102,7 +101,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("cannot get user's receipts");
         }
         return receipts;
     }
@@ -119,7 +118,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get state id");
         }
         return id;
     }
@@ -127,7 +126,9 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     private Receipt setReceipt(ResultSet rs) throws SQLException, DBException {
         Receipt receipt = new Receipt();
         receipt.setId(rs.getInt(1));
-        receipt.setUserId(rs.getInt(2));
+        int userId = rs.getInt(2);
+        receipt.setUserId(userId);
+        receipt.setUserName(UserDAOImpl.getInstance().getUserById(userId).getLogin());
         receipt.setPrice(rs.getInt(3));
         receipt.setLength(rs.getInt(4));
         receipt.setDeparture(rs.getString(5));
@@ -148,7 +149,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("cannot get state");
         }
         return state;
     }
@@ -164,7 +165,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get car id");
         }
         return cars;
     }
@@ -180,7 +181,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             deleteCarsPs.execute();
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot delete receipt");
         }
     }
 
@@ -197,7 +198,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot confirm receipt");
         }
     }
 
@@ -212,7 +213,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             }
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
-            throw new DBException(e.getMessage());
+            throw new DBException("Cannot get all receipts");
         }
         return receipts;
     }
