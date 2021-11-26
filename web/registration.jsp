@@ -9,7 +9,7 @@
         <input type="hidden" name="command" value="createUser">
         <br>Login:<br>
         <input type="text" id="login" name="login" required maxlength="32"
-               pattern="[a-z0-9а-яёєіїґА-ЯЁЭA-Z]{6,32}" title="6 to 32 letters or numbers">
+               pattern="[a-z0-9а-яёєіїґА-ЯЁЭA-Z]{3,32}" title="3 to 32 letters or numbers">
         <span class="validity"></span>
         <br>Email:<br>
         <input name="email" type="email" maxlength="45" title="max amount of symbols is 45" required>

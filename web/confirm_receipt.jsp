@@ -7,16 +7,22 @@
 </head>
 <body>
 <h1>Your receipt:</h1><br>
-    Receipt id:${currentReceipt.id}<br>
+    Car type: ${currentReceipt.carType}<br>
     <c:if test="${amountOfCars != null}">
         Amount of cars: ${amountOfCars}<br>
     </c:if>
-    Car type: ${currentReceipt.carType}<br>
     Amount of passengers: ${currentReceipt.passengers}<br>
     Departure: ${currentReceipt.departure}<br>
     Destination: ${currentReceipt.destination}<br>
     Length: ${currentReceipt.lengthDouble}<br>
-    Price per km for 1 car: ${currentReceipt.pricePerKm}<br>
+    <c:choose>
+        <c:when test="${amountOfCars != null}">
+            Price per km for 1 car: ${currentReceipt.pricePerKm}<br>
+        </c:when>
+        <c:otherwise>
+            Price per km: ${currentReceipt.pricePerKm}<br>
+        </c:otherwise>
+    </c:choose>
     Total price: ${currentReceipt.priceDouble}<br>
     Time: ${currentReceipt.time}<br>
     <form action="controller" method="post">

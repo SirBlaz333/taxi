@@ -18,6 +18,9 @@ text.right{
 text.error {
     color: red;
 }
+text.user{
+    color: crimson;
+}
 h1{
     color:green;
 }
@@ -31,11 +34,9 @@ table{
 }
 
 div.list {
-    height: 500px;
+    height: 400px;
     width: 50%;
     margin-left: 25%;
-    border: 1px solid #C1C1C1;
-    overflow-y: scroll;
 }
 div.center{
     flex-direction: column;
@@ -48,6 +49,31 @@ div.name{
 }
 div.button{
     display: none;
+}
+div.login{
+    display: flex;
+    position: absolute;
+    top: 1%;
+    right: 3%;
+    font-size: 50%;
+}
+div.thanks{
+    margin-top: 10%;
+}
+div.page{
+    display: inline-block;
+    text-align: center;
+}
+a{
+    margin-left: 2px;
+}
+form.logout{
+    font-size: 60%;
+}
+form.page{
+    font-size: 90%;
+    display: inline-block;
+    float: inside;
 }
 input.radio:checked+div.button{
     font-size: 50%;

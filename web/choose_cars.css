@@ -1,0 +1,27 @@
+form{
+    margin-top: 15%;
+    display: inline;
+    margin-left: 5%;
+}
+
+body{
+    font-size: 200%;
+    margin-top: 10%;
+    text-align: center;
+}
+a{
+    margin:5%
+}
+input{
+    font-size: 150%;
+}
+
+div.button{
+    display: none;
+}
+input.radio:checked+div.button{
+    display: inline-block;
+}
+form.input {
+    display: inline;
+}

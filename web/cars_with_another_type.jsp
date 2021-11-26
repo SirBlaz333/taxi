@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Taxi</title>
-    <link rel="stylesheet" href="listStyle.css">
+    <link rel="stylesheet" href="choose_cars.css">
 </head>
 <body>
     <h1>Choose another taxi type:</h1>

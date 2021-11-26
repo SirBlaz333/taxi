@@ -10,15 +10,18 @@
         Error!!!
         <br>
         ${errorMessage}
+        ${requestScope['javax.servlet.error.message']}
     </text>
     <br>
     <c:choose>
         <c:when test="${currentUser != null}">
-            <a href="index.jsp">Go back to user page</a>
+            <a href="index.jsp">To user page</a>
         </c:when>
         <c:otherwise>
-            <a href="login.jsp">Log in</a>
+            <a href="login.jsp">To login page</a>
         </c:otherwise>
     </c:choose>
+    <c:remove var="errorMessage"/>
+    <br>
 </body>
 </html>

@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ taglib prefix="th" uri="/WEB-INF/ReceiptTag" %>
 <html>
   <head>
     <title>Taxi</title>
