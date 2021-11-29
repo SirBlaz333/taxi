@@ -5,7 +5,7 @@
     <c:choose>
         <c:when test="${user!=null}">
             You logged in as:
-            <text class="user">${user.login}</text>
+            <a href="/edit_user.jsp">${user.login}</a>
             <form class="logout" action="controller" method="post">
                 <input type="hidden" name="command" value="logout">
                 <input type="submit" value="Logout">

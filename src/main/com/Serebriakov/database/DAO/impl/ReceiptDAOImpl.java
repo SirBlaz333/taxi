@@ -18,12 +18,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.Serebriakov.database.SQLQuery.ReceiptQuery.*;
+
 public class ReceiptDAOImpl implements ReceiptDAO {
-    private static Logger logger = LogManager.getLogger("DBError");
+    private static Logger logger = LogManager.getLogger("DB");
     private static DatabaseManager dbManager;
     private static ReceiptDAOImpl receiptDAO;
 
     static {
+        logger.info("Class " + ReceiptDAOImpl.class.getName() + " has been uploaded");
         receiptDAO = null;
     }
 
@@ -42,9 +45,9 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public int addReceipt(Receipt receipt, Car... cars) throws DBException {
         int id = -1;
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.ADD_RECEIPT);
-            PreparedStatement idPs = connection.prepareStatement(SQLQuery.ReceiptQuery.FIND_LAST_RECEIPT_ID);
-            PreparedStatement carPs = connection.prepareStatement(SQLQuery.ReceiptQuery.ADD_CARS_TO_RECEIPT)){
+            PreparedStatement ps = connection.prepareStatement(ADD_RECEIPT);
+            PreparedStatement idPs = connection.prepareStatement(FIND_LAST_RECEIPT_ID);
+            PreparedStatement carPs = connection.prepareStatement(ADD_CARS_TO_RECEIPT)){
             int k = 0;
             ps.setInt(++k, receipt.getUserId());
             ps.setInt(++k, receipt.getPrice());
@@ -53,6 +56,7 @@ public class ReceiptDAOImpl implements ReceiptDAO {
             ps.setString(++k, receipt.getDeparture());
             ps.setString(++k, receipt.getTime());
             ps.setInt(++k, getStateId(Receipt_state.getStringState(receipt.getState())));
+            ps.setInt(++k, receipt.getPassengers());
             ps.execute();
 
             ResultSet rs = idPs.executeQuery();
@@ -60,11 +64,13 @@ public class ReceiptDAOImpl implements ReceiptDAO {
                 id = rs.getInt("LAST_INSERT_ID()");
             }
             for(Car car : cars){
-                System.out.println("Car id ==>" + car.getId());
                 carPs.setInt(1, id);
                 carPs.setInt(2, car.getId());
                 carPs.execute();
             }
+
+            String message = String.format("Receipt(%d) has been added to database", id);
+            logger.info(message);
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot add receipt");
@@ -77,12 +83,19 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public Receipt getReceiptById(int id) throws DBException {
         Receipt receipt = null;
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.GET_RECEIPT_BY_ID)){
+            PreparedStatement ps = connection.prepareStatement(GET_RECEIPT_BY_ID)){
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 receipt = setReceipt(rs);
             }
+            String message;
+            if(receipt != null){
+                message = String.format("Receipt(%s) received from database", id);
+            } else {
+                message = String.format("Cannot receive receipt(%s) from database ", id);
+            }
+            logger.info(message);
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get receipt");
@@ -94,12 +107,14 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public List<Receipt> getUserReceipts(int userId) throws DBException {
         List<Receipt> receipts = new ArrayList<>();
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.GET_RECEIPTS_BY_USER_ID)){
+            PreparedStatement ps = connection.prepareStatement(GET_RECEIPTS_BY_USER_ID)){
             ps.setInt(1, userId);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 receipts.add(setReceipt(rs));
             }
+            String message = String.format("User's(%d) receipts have been received from database", userId);
+            logger.info(message);
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("cannot get user's receipts");
@@ -111,12 +126,14 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public int getStateId(String state) throws DBException {
         int id = -1;
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.GET_STATE_ID)){
+            PreparedStatement ps = connection.prepareStatement(GET_STATE_ID)){
             ps.setString(1, state);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 id = rs.getInt("id");
             }
+            String message = String.format("Receive receipt's state from database (%s ==> %d)", state, id);
+            logger.info(message);
         }  catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get state id");
@@ -129,20 +146,21 @@ public class ReceiptDAOImpl implements ReceiptDAO {
         receipt.setId(rs.getInt(1));
         int userId = rs.getInt(2);
         receipt.setUserId(userId);
-        receipt.setUserName(UserDAOImpl.getInstance().getUserById(userId).getLogin());
+        receipt.setUser(UserDAOImpl.getInstance().getUserById(userId));
         receipt.setPrice(rs.getInt(3));
         receipt.setLength(rs.getInt(4));
         receipt.setDeparture(rs.getString(5));
         receipt.setDestination(rs.getString(6));
         receipt.setTime(rs.getString(7));
         receipt.setState(Receipt_state.getState(getState(rs.getInt(8))));
+        receipt.setPassengers(rs.getInt(9));
         return receipt;
     }
 
     private String getState(int stateId) throws DBException {
         String state = null;
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.GET_STATE)){
+            PreparedStatement ps = connection.prepareStatement(GET_STATE)){
             ps.setInt(1, stateId);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -155,15 +173,18 @@ public class ReceiptDAOImpl implements ReceiptDAO {
         return state;
     }
 
-    private List<Integer> getCarsId(int id) throws DBException {
+    @Override
+    public List<Integer> getCarsIdByReceiptId(int receipt_id) throws DBException {
         List<Integer> cars = new ArrayList<>();
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.FIND_CARS_BY_RECEIPT_ID)){
-            ps.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement(FIND_CARS_BY_RECEIPT_ID)){
+            ps.setInt(1, receipt_id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 cars.add(rs.getInt("cars_id"));
             }
+            String message = String.format("Received list of cars id for receipt(%d)", receipt_id);
+            logger.info(message);
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get car id");
@@ -174,12 +195,14 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     @Override
     public void deleteReceipt(int id) throws DBException {
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.DELETE_RECEIPT);
-            PreparedStatement deleteCarsPs = connection.prepareStatement(SQLQuery.ReceiptQuery.DELETE_CARS_FROM_RECEIPT)){
+            PreparedStatement ps = connection.prepareStatement(DELETE_RECEIPT);
+            PreparedStatement deleteCarsPs = connection.prepareStatement(DELETE_CARS_FROM_RECEIPT)){
             ps.setInt(1, id);
             ps.execute();
             deleteCarsPs.setInt(1, id);
             deleteCarsPs.execute();
+            String message = String.format("Receipt(%d) has been deleted from database", id);
+            logger.info(message);
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot delete receipt");
@@ -190,13 +213,15 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public void confirmReceipt(int id) throws DBException {
         CarDAO carDAO = CarDAOImpl.getInstance();
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.CONFIRM_RECEIPT)){
+            PreparedStatement ps = connection.prepareStatement(CONFIRM_RECEIPT)){
             ps.setInt(1, id);
             ps.execute();
-            List<Integer> carsId = getCarsId(id);
+            List<Integer> carsId = getCarsIdByReceiptId(id);
             for(int carId : carsId){
                 carDAO.confirmCarForTrip(carId);
             }
+            String message = String.format("Receipt(%d) has been confirmed", id);
+            logger.info(message);
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot confirm receipt");
@@ -207,14 +232,34 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     public List<Receipt> getAllReceipts() throws DBException {
         List<Receipt> receipts = new ArrayList<>();
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(SQLQuery.ReceiptQuery.GET_ALL_RECEIPTS)){
+            PreparedStatement ps = connection.prepareStatement(GET_ALL_RECEIPTS)){
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 receipts.add(setReceipt(rs));
             }
+            logger.info("All receipts have been received from database");
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get all receipts");
+        }
+        return receipts;
+    }
+
+    public List<Receipt> getAllReceiptsWithSuchState(int state_id) throws DBException {
+        List<Receipt> receipts = new ArrayList<>();
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_RECEIPTS_WITH_STATE)){
+            ps.setInt(1, state_id);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                receipts.add(setReceipt(rs));
+            }
+            String message = String.format("Receipts with state(%d) have been received from database", state_id);
+            logger.info(message);
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            String message = String.format("Cannot get receipts with state(%d)", state_id);
+            throw new DBException(message);
         }
         return receipts;
     }

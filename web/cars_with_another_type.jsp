@@ -1,5 +1,7 @@
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib prefix="s" uri="/WEB-INF/tags/SecurityTag" %>
+<s:checkPermission user="${currentUser}" role="user" redirect="error_page.jsp"/>
 <html>
 <head>
     <title>Taxi</title>

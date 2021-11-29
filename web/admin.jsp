@@ -2,7 +2,7 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="mylib" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="s" uri="/WEB-INF/tags/SecurityTag" %>
-<s:checkPermision user="${currentUser}" redirect="error_page.jsp"/>
+<s:checkPermission user="${currentUser}" role="admin" redirect="error_page.jsp"/>
 <html>
 <head>
     <title>Admin page</title>
@@ -36,7 +36,7 @@
                 <option value="Price">Price</option>
             </select>
             <br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Update">
         </form>
         <div class="list">
             <table border="1">
@@ -52,12 +52,17 @@
                 <c:forEach var="receipt" items="${requiredReceipts}">
                     <tr>
                         <th>${receipt.id}</th>
-                        <th>${receipt.userName}</th>
+                        <th>${receipt.user.login}</th>
                         <th>${receipt.priceDouble}</th>
                         <th>${receipt.departure}</th>
                         <th>${receipt.destination}</th>
                         <th>${receipt.time}</th>
                         <th>${receipt.getStateString()}</th>
+                        <th><form action="controller" method="post">
+                            <input type="hidden" name="command" value="showReceipt">
+                            <input type="hidden" name="id" value="${receipt.id}">
+                            <input type="submit" value="More">
+                        </form></th>
                     </tr>
                 </c:forEach>
             </table>

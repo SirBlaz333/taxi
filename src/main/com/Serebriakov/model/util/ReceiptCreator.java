@@ -41,8 +41,10 @@ public class ReceiptCreator {
         receipt.setDestination(destination);
         receipt.setTime(time);
         receipt.setLength(length);
-        receipt.setPricePerKm(carDAO.findPrice(Car_type.getType(carType), length));
-        receipt.setPrice(receipt.getPricePerKm()*length);
+        receipt.setPricePerKm(carDAO.findPrice(Car_type.getType(carType)));
+        int price = 2000 + receipt.getPricePerKm()*length;
+        price *= (double)(100-user.getDiscount())/100;
+        receipt.setPrice(price);
         receipt.setState(Receipt_state.CREATED);
         return receipt;
     }

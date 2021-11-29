@@ -9,8 +9,35 @@ public class User {
     private String password;
     private String email;
     private Role role;
+    private String name;
+    private int discount;
+    private int spentMoney;
 
-    private User(){}
+    public int getSpentMoney() {
+        return spentMoney;
+    }
+
+    public void setSpentMoney(int spentMoney) {
+        this.spentMoney = spentMoney;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(int discount) {
+        this.discount = discount;
+    }
+
+    public User(){}
 
     public User(int id, String login, String password, String email, Role role) {
         this.id = id;
@@ -26,13 +53,6 @@ public class User {
         user.setPassword(password);
         user.setEmail(email);
         user.setRole(role);
-        return user;
-    }
-
-    public static User getUser(String login){
-        User user = new User();
-        user.setLogin(login);
-        user.setRole(Role.USER);
         return user;
     }
 

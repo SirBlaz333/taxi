@@ -20,9 +20,12 @@ public class CreateUserCommand implements Command {
         String login = request.getParameter("login");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
+        String name = request.getParameter("name");
         password = Password.hashcode(password);
         UserDAO userDAO = UserDAOImpl.getInstance();
         User user = User.createUser(login, password, email, Role.USER);
+        user.setDiscount(0);
+        user.setName(name);
         try{
             userDAO.addUser(user);
             user = userDAO.getUserByLogin(login);

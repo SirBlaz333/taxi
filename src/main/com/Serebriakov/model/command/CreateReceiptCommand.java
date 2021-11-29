@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 public class CreateReceiptCommand implements Command {
-    private static Logger logger = LogManager.getLogger(Thread.currentThread().getName());
+    private static Logger logger = LogManager.getLogger("DB");
 
 
     @Override
@@ -35,8 +35,10 @@ public class CreateReceiptCommand implements Command {
         if(receipt != null){
             car = carDAO.findCar(receipt.getPassengers(), Car_type.getType(carType));
             receipt.setCarType(carType);
-            receipt.setPricePerKm(carDAO.findPrice(Car_type.getType(carType), receipt.getLength()));
-            receipt.setPrice(receipt.getPricePerKm()*receipt.getLength());
+            receipt.setPricePerKm(carDAO.findPrice(Car_type.getType(carType)));
+            int price = 2000 + receipt.getPricePerKm()*receipt.getLength();
+            price *= (double)(100-user.getDiscount())/100;
+            receipt.setPrice(price);
         } else {
             receipt = ReceiptCreator.getReceipt(request, user);
             request.getSession().setAttribute("currentReceipt", receipt);

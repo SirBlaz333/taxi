@@ -19,11 +19,12 @@ import static com.Serebriakov.database.SQLQuery.UserQuery.*;
 
 public class UserDAOImpl implements UserDAO {
 
-    private static Logger logger = LogManager.getLogger("DBError");
+    private static Logger logger = LogManager.getLogger("DB");
     private static DatabaseManager dbManager;
     private static UserDAOImpl userDAO;
 
     static {
+        logger.info("Class " + UserDAOImpl.class.getName() + " has been uploaded");
         userDAO = null;
     }
 
@@ -40,19 +41,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User getUserByLogin(String login) throws DBException {
-        User user = null;
+        User user;
         try(Connection connection = dbManager.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN)){
+            PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_LOGIN)){
             preparedStatement.setString(1, login);
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                int id = rs.getInt("id");
-                int roleId = rs.getInt("role_id");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                Role role = getUserRole(roleId);
-                user = new User(id, login, password, email, role);
+            user = getUser(preparedStatement);
+            String message;
+            if(user != null){
+                message = String.format("User(%s) received from database", login);
+            } else {
+                message = String.format("Cannot receive user(%s) from database ", login);
             }
+            logger.info(message);
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get user by login (" + login + ")");
@@ -60,28 +60,64 @@ public class UserDAOImpl implements UserDAO {
         return user;
     }
 
-
+    private User getUser(PreparedStatement preparedStatement) throws SQLException, DBException {
+        User user = null;
+        ResultSet rs = preparedStatement.executeQuery();
+        while(rs.next()){
+            user = createUser(rs);
+        }
+        return user;
+    }
 
     @Override
     public User getUserById(int id) throws DBException {
-        User user = null;
         try(Connection connection = dbManager.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(GET_USER_BY_ID)){
             preparedStatement.setInt(1, id);
-            ResultSet rs = preparedStatement.executeQuery();
-            while(rs.next()){
-                String login = rs.getString("login");
-                int roleId = rs.getInt("role_id");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                Role role = getUserRole(roleId);
-                user = new User(id, login, password, email, role);
+            User user = getUser(preparedStatement);
+            String message;
+            if(user != null){
+                message = String.format("User(%s) received from database", id);
+            } else {
+                message = String.format("Cannot receive user(%s) from database ", id);
             }
+            logger.info(message);
+            return user;
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get user by id (" + id + ")");
         }
+    }
+
+    private User createUser(ResultSet rs) throws SQLException, DBException {
+        User user = new User();
+        user.setId(rs.getInt("id"));
+        user.setLogin(rs.getString("login"));
+        int roleId = rs.getInt("role_id");
+        user.setRole(getUserRole(roleId));
+        user.setPassword(rs.getString("password"));
+        user.setEmail(rs.getString("email"));
+        user.setName(rs.getString("name"));
+        int spentMoney = rs.getInt("spent_money");
+        user.setSpentMoney(spentMoney);
+        user.setDiscount(getDiscount(spentMoney));
         return user;
+    }
+
+    public int getDiscount(int spentMoney) throws DBException{
+        int discount = 0;
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement ps = connection.prepareStatement(GET_DISCOUNT)){
+            ps.setInt(1, spentMoney);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                discount = rs.getInt("discount");
+            }
+        } catch (SQLException e) {
+            logger.error("Error: " + e.getMessage());
+            throw new DBException("Cannot get discount");
+        }
+        return discount;
     }
 
     @Override
@@ -112,15 +148,10 @@ public class UserDAOImpl implements UserDAO {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_USERS)){
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next()){
-                int id = rs.getInt("id");
-                String login = rs.getString("login");
-                int roleId = rs.getInt("role_id");
-                String password = rs.getString("password");
-                String email = rs.getString("email");
-                Role role = getUserRole(roleId);
-                User user = new User(id, login, password, email, role);
+                User user = createUser(rs);
                 users.add(user);
             }
+            logger.info("All users have been received");
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot get all users");
@@ -135,7 +166,10 @@ public class UserDAOImpl implements UserDAO {
             preparedStatement.setString(1, user.getLogin());
             preparedStatement.setString(2, user.getPassword());
             preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getName());
             preparedStatement.execute();
+            String message = String.format("User(%s) has been added to database", user.getLogin());
+            logger.info(message);
         } catch (SQLException e){
             logger.error("Error: " + e.getMessage());
             throw new DBException("Cannot add user");
@@ -148,7 +182,20 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
-
+    public void updateUser(User user) throws DBException {
+        try(Connection connection = dbManager.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER)){
+            preparedStatement.setString(1, user.getEmail());
+            preparedStatement.setString(2, user.getName());
+            preparedStatement.setInt(3, user.getSpentMoney());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setInt(5, user.getId());
+            preparedStatement.execute();
+            String message = String.format("User(%s) has been updated in database", user.getLogin());
+            logger.info(message);
+        } catch (SQLException e){
+            logger.error("Error: " + e.getMessage());
+            throw new DBException("Cannot update user");
+        }
     }
 }

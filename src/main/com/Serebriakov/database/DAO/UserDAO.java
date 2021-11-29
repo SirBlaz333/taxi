@@ -16,10 +16,12 @@ public interface UserDAO {
 
     List<User> getAllUsers() throws DBException;
 
+    int getDiscount(int spentMoney) throws DBException;
+
     void addUser(User user) throws DBException;
 
     void deleteUser(User user);
 
-    void updateUser(User user);
+    void updateUser(User user) throws DBException;
 
 }

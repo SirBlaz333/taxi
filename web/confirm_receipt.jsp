@@ -1,5 +1,8 @@
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+
+<%@ taglib prefix="s" uri="/WEB-INF/tags/SecurityTag" %>
+<s:checkPermission user="${currentUser}" role="user" redirect="error_page.jsp"/>
 <html>
 <head>
     <title>Confirm receipt</title>
@@ -15,14 +18,16 @@
     Departure: ${currentReceipt.departure}<br>
     Destination: ${currentReceipt.destination}<br>
     Length: ${currentReceipt.lengthDouble}<br>
+    Minimal price: 20<br>
     <c:choose>
         <c:when test="${amountOfCars != null}">
-            Price per km for 1 car: ${currentReceipt.pricePerKm}<br>
+            Price per next km for 1 car: ${currentReceipt.pricePerKm}<br>
         </c:when>
         <c:otherwise>
-            Price per km: ${currentReceipt.pricePerKm}<br>
+            Price per next km: ${currentReceipt.pricePerKm}<br>
         </c:otherwise>
     </c:choose>
+    Discount: ${currentUser.discount}%<br>
     Total price: ${currentReceipt.priceDouble}<br>
     Time: ${currentReceipt.time}<br>
     <form action="controller" method="post">

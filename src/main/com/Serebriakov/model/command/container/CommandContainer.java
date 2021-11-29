@@ -20,6 +20,8 @@ public class CommandContainer {
         commands.put("chooseCarsWithAnotherType", new OptionsCarsWithAnotherTypeCommand());
         commands.put("updateReceipts", new UpdateReceiptsListCommand());
         commands.put("page", new PageCommand());
+        commands.put("updateUser", new UpdateUserCommand());
+        commands.put("showReceipt", new ShowReceiptCommand());
     }
 
     public static Command getCommand(String command){

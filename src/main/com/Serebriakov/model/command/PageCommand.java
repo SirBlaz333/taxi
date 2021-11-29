@@ -10,7 +10,7 @@ import java.util.List;
 
 public class PageCommand implements Command {
 
-    private static final int maxReceipts = 15;
+    private static final int maxReceipts = 8;
 
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response){
@@ -32,7 +32,10 @@ public class PageCommand implements Command {
             last = receipts.size();
         }
         List<Receipt> requiredReceipts = receipts.subList((page-1)*maxReceipts, last);
-        int maxPossiblePage = receipts.size()/maxReceipts + 1;
+        int maxPossiblePage = (int) Math.ceil(receipts.size()/maxReceipts);
+        if(receipts.size() % maxReceipts != 0){
+            maxPossiblePage++;
+        }
         session.setAttribute("page", page);
         session.setAttribute("maxPossiblePage", maxPossiblePage);
         session.setAttribute("requiredReceipts", requiredReceipts);

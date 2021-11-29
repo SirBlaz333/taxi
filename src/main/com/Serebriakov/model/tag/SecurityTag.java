@@ -14,6 +14,7 @@ import java.io.IOException;
 public class SecurityTag extends SimpleTagSupport {
     private User user;
     private String redirection;
+    private String role;
 
     public void setRedirect(String redirect) {
         this.redirection = redirect;
@@ -23,9 +24,13 @@ public class SecurityTag extends SimpleTagSupport {
         this.user = user;
     }
 
+    public void setRole(String role){
+        this.role = role;
+    }
+
     @Override
     public void doTag() throws IOException {
-        if(user == null || !user.getRole().equals(Role.ADMIN)){
+        if(user == null || !user.getRole().equals(Role.ADMIN) && !user.getRole().equals(Role.getRole(role))){
             PageContext pageContext = (PageContext) getJspContext();
             HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
             HttpServletResponse response = (HttpServletResponse) pageContext.getResponse();

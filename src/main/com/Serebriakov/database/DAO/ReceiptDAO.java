@@ -15,4 +15,5 @@ public interface ReceiptDAO {
     void deleteReceipt(int id) throws DBException;
     void confirmReceipt(int id) throws DBException;
     List<Receipt> getAllReceipts() throws DBException;
+    List<Integer> getCarsIdByReceiptId(int receipt_id) throws DBException;
 }

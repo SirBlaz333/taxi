@@ -17,14 +17,14 @@ public class Receipt {
     private String carType;
     private int passengers;
     private Receipt_state state;
-    private String userName;
+    private User user;
 
-    public String getUserName() {
-        return userName;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public int getPricePerKm() {

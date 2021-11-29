@@ -23,7 +23,11 @@ public class ReceiptContainer {
         receipts = ReceiptDAOImpl.getInstance().getAllReceipts();
     }
 
-    public static boolean containsRequiredReceipts(String sessionId){
+    public static void addToList(Receipt receipt){
+        receipts.add(receipt);
+    }
+
+    private static boolean containsRequiredReceipts(String sessionId){
         return requiredReceipts.containsKey(sessionId);
     }
 
