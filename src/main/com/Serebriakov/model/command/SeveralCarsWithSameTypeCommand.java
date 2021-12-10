@@ -31,7 +31,7 @@ public class SeveralCarsWithSameTypeCommand implements Command {
         try{
             List<Car> cars = carDAO.findCarList(passengers, Car_type.getType(carType));
             if(cars == null){
-                request.getSession().setAttribute("NoSuchCarError", "There are no available cars with this type.");
+                request.getSession().setAttribute("NoSuchCarErrorID", 2);
                 return "choose_options.jsp";
             }
             request.getSession().setAttribute("amountOfCars", cars.size());

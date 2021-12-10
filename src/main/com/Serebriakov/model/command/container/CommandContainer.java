@@ -22,6 +22,8 @@ public class CommandContainer {
         commands.put("page", new PageCommand());
         commands.put("updateUser", new UpdateUserCommand());
         commands.put("showReceipt", new ShowReceiptCommand());
+        commands.put("completeReceipt", new CompleteReceiptCommand());
+        commands.put("updateReceiptsData", new UpdateReceiptsDatabaseCommand());
     }
 
     public static Command getCommand(String command){

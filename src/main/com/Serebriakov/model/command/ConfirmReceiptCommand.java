@@ -6,6 +6,7 @@ import com.Serebriakov.database.entity.Receipt;
 import com.Serebriakov.database.DAO.ReceiptDAO;
 import com.Serebriakov.database.DAO.impl.ReceiptDAOImpl;
 import com.Serebriakov.database.entity.User;
+import com.Serebriakov.database.entity.state.Receipt_state;
 import com.Serebriakov.exception.DBException;
 import com.Serebriakov.model.util.ReceiptContainer;
 import org.apache.logging.log4j.LogManager;
@@ -27,7 +28,7 @@ public class ConfirmReceiptCommand implements Command {
         ReceiptDAO receiptDAO = ReceiptDAOImpl.getInstance();
         UserDAO userDAO = UserDAOImpl.getInstance();
         if(receipt!=null){
-            receiptDAO.confirmReceipt(receipt.getId());
+            receiptDAO.updateReceiptState(receipt.getId(), Receipt_state.CONFIRMED);
             user.setSpentMoney(user.getSpentMoney()+receipt.getPrice());
             userDAO.updateUser(user);
             user.setDiscount(userDAO.getDiscount(user.getSpentMoney()));

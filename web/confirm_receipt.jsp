@@ -1,42 +1,45 @@
 <%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="/WEB-INF/tags/SecurityTag" %>
+<%@ taglib prefix="mylib" tagdir="/WEB-INF/tags" %>
 <s:checkPermission user="${currentUser}" role="user" redirect="error_page.jsp"/>
 <html>
 <head>
-    <title>Confirm receipt</title>
+    <title><fmt:message key="confirm_receipt_jsp.title"/></title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<h1>Your receipt:</h1><br>
-    Car type: ${currentReceipt.carType}<br>
+<h1><fmt:message key="confirm_receipt_jsp.your_receipt"/>:</h1><br>
+    <fmt:message key="confirm_receipt_jsp.car_type"/>:
+    <mylib:CarType carType="${currentReceipt.carType}"/>
+    <br>
     <c:if test="${amountOfCars != null}">
-        Amount of cars: ${amountOfCars}<br>
+        <fmt:message key="confirm_receipt_jsp.amount_of_cars"/>: ${amountOfCars}<br>
     </c:if>
-    Amount of passengers: ${currentReceipt.passengers}<br>
-    Departure: ${currentReceipt.departure}<br>
-    Destination: ${currentReceipt.destination}<br>
-    Length: ${currentReceipt.lengthDouble}<br>
-    Minimal price: 20<br>
+    <fmt:message key="confirm_receipt_jsp.amount_of_passengers"/>: ${currentReceipt.passengers}<br>
+    <fmt:message key="confirm_receipt_jsp.departure"/>: ${currentReceipt.departure}<br>
+    <fmt:message key="confirm_receipt_jsp.destination"/>: ${currentReceipt.destination}<br>
+    <fmt:message key="confirm_receipt_jsp.length"/>: ${currentReceipt.lengthDouble}<br>
+    <fmt:message key="confirm_receipt_jsp.minimal_price"/>: 20<br>
     <c:choose>
         <c:when test="${amountOfCars != null}">
-            Price per next km for 1 car: ${currentReceipt.pricePerKm}<br>
+            <fmt:message key="confirm_receipt_jsp.price_per_next_km_for_1_car"/>: ${currentReceipt.pricePerKm}<br>
         </c:when>
         <c:otherwise>
-            Price per next km: ${currentReceipt.pricePerKm}<br>
+            <fmt:message key="confirm_receipt_jsp.price_per_next_km"/>: ${currentReceipt.pricePerKm}<br>
         </c:otherwise>
     </c:choose>
-    Discount: ${currentUser.discount}%<br>
-    Total price: ${currentReceipt.priceDouble}<br>
-    Time: ${currentReceipt.time}<br>
+    <fmt:message key="confirm_receipt_jsp.discount"/>: ${currentUser.discount}%<br>
+    <fmt:message key="confirm_receipt_jsp.total_price"/>: ${currentReceipt.priceDouble}<br>
+    <fmt:message key="confirm_receipt_jsp.creation_time"/>: ${currentReceipt.time}<br>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="deleteReceipt">
-        <input type="submit" value="Delete receipt">
+        <input type="submit" value="<fmt:message key="confirm_receipt_jsp.delete_receipt"/>">
     </form>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="confirmReceipt">
-        <input type="submit" value="Confirm receipt">
+        <input type="submit" value="<fmt:message key="confirm_receipt_jsp.confirm_receipt"/>">
 </form>
 </body>
 </html>

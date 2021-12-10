@@ -47,7 +47,7 @@ public class CreateReceiptCommand implements Command {
         }
 
         if(car == null){
-            request.getSession().setAttribute("NoSuchCarError", "There are no available taxi with this type");
+            request.getSession().setAttribute("NoSuchCarErrorID", 1);
             return "choose_options.jsp";
         }
 

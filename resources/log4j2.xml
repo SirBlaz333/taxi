@@ -26,6 +26,12 @@
         <Logger name="Listener" level="info">
             <AppenderRef ref="Console"/>
         </Logger>
+        <Logger name="Tag" level="error">
+            <AppenderRef ref="Console"/>
+        </Logger>
+        <Logger name="Util" level="info">
+            <AppenderRef ref="Console"/>
+        </Logger>
         <Root level="debug">
             <AppenderRef ref="File"/>
         </Root>

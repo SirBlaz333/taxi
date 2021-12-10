@@ -210,11 +210,12 @@ public class ReceiptDAOImpl implements ReceiptDAO {
     }
 
     @Override
-    public void confirmReceipt(int id) throws DBException {
+    public void updateReceiptState(int id, Receipt_state state) throws DBException {
         CarDAO carDAO = CarDAOImpl.getInstance();
         try(Connection connection = dbManager.getConnection();
-            PreparedStatement ps = connection.prepareStatement(CONFIRM_RECEIPT)){
-            ps.setInt(1, id);
+            PreparedStatement ps = connection.prepareStatement(UPDATE_STATE)){
+            ps.setInt(1, getStateId(Receipt_state.getStringState(state)));
+            ps.setInt(2, id);
             ps.execute();
             List<Integer> carsId = getCarsIdByReceiptId(id);
             for(int carId : carsId){

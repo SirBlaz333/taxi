@@ -17,7 +17,7 @@ import java.util.List;
 
 public class CheckUnconfirmedReceipts{
     private static long DIF = 5*60;
-    private static Logger logger = LogManager.getLogger("Listener");
+    private static Logger logger = LogManager.getLogger("Util");
     public static void execute() {
         try {
             ReceiptDAOImpl receiptDAO = ReceiptDAOImpl.getInstance();
