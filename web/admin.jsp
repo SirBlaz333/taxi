@@ -63,11 +63,11 @@
                         <th>${receipt.departure}</th>
                         <th>${receipt.destination}</th>
                         <th>${receipt.time}</th>
-                        <th>${receipt.getStateString()}</th>
+                        <th><mylib:ReceiptState state="${receipt.state.toString()}"/></th>
                         <th><form action="controller" method="post">
                             <input type="hidden" name="command" value="showReceipt">
                             <input type="hidden" name="id" value="${receipt.id}">
-                            <input type="submit" value="More">
+                            <input type="submit" value="<fmt:message key="admin_page.table.more"/>">
                         </form></th>
                     </tr>
                 </c:forEach>

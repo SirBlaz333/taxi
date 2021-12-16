@@ -19,7 +19,7 @@
         <fmt:message key="receipt_info_jsp.departure"/>: ${receiptInfo.departure}<br>
         <fmt:message key="receipt_info_jsp.destination"/>: ${receiptInfo.destination}<br>
         <fmt:message key="receipt_info_jsp.length"/> ${receiptInfo.lengthDouble}<br>
-        <fmt:message key="receipt_info_jsp.total_price"/>: ${receiptInfo.priceDouble}<br>
+        <fmt:message key="receipt_info_jsp.total_price"/>: ${receiptInfo.priceDouble}₴<br>
         <fmt:message key="receipt_info_jsp.creation_time"/>: ${receiptInfo.time}<br>
         <fmt:message key="receipt_info_jsp.state"/>: <mylib:ReceiptState state="${receiptInfo.state.toString()}"/><br>
         <c:if test="${receiptInfo.state.toString().equals('CONFIRMED')}">

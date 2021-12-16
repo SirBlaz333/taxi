@@ -11,7 +11,14 @@
         <fmt:message key="settings_jsp.label.set_locale"/>
         <select name="locale">
             <c:forEach items="${applicationScope.locales}" var="locale">
-                <option value="${locale.key}">${locale.value}</option>
+                <option value="${locale.key}">
+                    <c:if test="${locale.key.equals('en')}">
+                        <fmt:message key="locale_en"/>
+                    </c:if>
+                    <c:if test="${locale.key.equals('ua')}">
+                        <fmt:message key="locale_ua"/>
+                    </c:if>
+                </option>
             </c:forEach>
         </select>
         <input type="submit" value="<fmt:message key="global.submit"/>"/>

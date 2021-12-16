@@ -24,14 +24,14 @@
     <fmt:message key="confirm_receipt_jsp.minimal_price"/>: 20<br>
     <c:choose>
         <c:when test="${amountOfCars != null}">
-            <fmt:message key="confirm_receipt_jsp.price_per_next_km_for_1_car"/>: ${currentReceipt.pricePerKm}<br>
+            <fmt:message key="confirm_receipt_jsp.price_per_next_km_for_1_car"/>: ${currentReceipt.pricePerKm}₴<br>
         </c:when>
         <c:otherwise>
-            <fmt:message key="confirm_receipt_jsp.price_per_next_km"/>: ${currentReceipt.pricePerKm}<br>
+            <fmt:message key="confirm_receipt_jsp.price_per_next_km"/>: ${currentReceipt.pricePerKm}₴<br>
         </c:otherwise>
     </c:choose>
     <fmt:message key="confirm_receipt_jsp.discount"/>: ${currentUser.discount}%<br>
-    <fmt:message key="confirm_receipt_jsp.total_price"/>: ${currentReceipt.priceDouble}<br>
+    <fmt:message key="confirm_receipt_jsp.total_price"/>: ${currentReceipt.priceDouble}₴<br>
     <fmt:message key="confirm_receipt_jsp.creation_time"/>: ${currentReceipt.time}<br>
     <form action="controller" method="post">
         <input type="hidden" name="command" value="deleteReceipt">

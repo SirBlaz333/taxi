@@ -15,6 +15,8 @@
           <element id="file-copy" path="$PROJECT_DIR$/../../apache-log4j-2.14.1-bin/log4j-api-2.14.1.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../../apache-log4j-2.14.1-bin/log4j-core-2.14.1.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/../../dbunit-2.4.9.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../mockito-core-4.1.0.jar" />
+          <element id="file-copy" path="$PROJECT_DIR$/../../byte-buddy-1.12.3.jar" />
         </element>
       </element>
     </root>

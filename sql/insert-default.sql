@@ -44,10 +44,22 @@ INSERT INTO receipts VALUES (DEFAULT, 2, 12321, 5, 'Шевченко, 22', 'Лу
 INSERT INTO receipts VALUES (DEFAULT, 2, 3123, 5, 'Лушпы 58', 'Шевченко, 23', '2021-11-07 17:15:30', 3, 3);
 INSERT INTO receipts VALUES (DEFAULT, 1, 1523, 5, 'Шевченко, 1', 'Лушпы 1', '2021-11-11 13:28:12', 3, 3);
 INSERT INTO receipts VALUES (DEFAULT, 1, 5456, 5, 'Шевченко, 3', 'Лушпы 17', '2021-11-11 17:25:13', 3, 3);
-INSERT INTO receipts VALUES (DEFAULT, 3, 18545, 5, 'Шевченко, 22', 'Лушпы 58', '2021-11-11 18:15:30', 3, 3);
-INSERT INTO receipts VALUES (DEFAULT, 1, 1554, 5, 'Шевченко, 21', 'Лушпы 35', '2021-11-11 18:00:10', 3, 3);
+INSERT INTO receipts VALUES (DEFAULT, 3, 18545, 5, 'Шевченко, 22', 'Лушпы 58', '2021-11-11 18:15:30', 3, 30);
+INSERT INTO receipts VALUES (DEFAULT, 1, 1554, 5, 'Шевченко, 21', 'Лушпы 35', '2021-11-11 18:00:10', 3, 15);
 INSERT INTO receipts VALUES (DEFAULT, 3, 33345, 5, 'Шевченко, 32', 'Лушпы 38', '2021-11-22 17:15:30', 2, 3);
 INSERT INTO receipts VALUES (DEFAULT, 1, 5435, 5, 'Шевченко, 22', 'Лушпы 42', '2021-11-22 17:25:30', 1, 3);
+
+
+INSERT INTO receipts_has_cars VALUES (1, 1);
+INSERT INTO receipts_has_cars VALUES (2, 2);
+INSERT INTO receipts_has_cars VALUES (3, 3);
+INSERT INTO receipts_has_cars VALUES (4, 10);
+INSERT INTO receipts_has_cars VALUES (5, 11);
+INSERT INTO receipts_has_cars VALUES (6, 5);
+INSERT INTO receipts_has_cars VALUES (7, 9);
+INSERT INTO receipts_has_cars VALUES (7, 10);
+INSERT INTO receipts_has_cars VALUES (8, 4);
+INSERT INTO receipts_has_cars VALUES (9, 3);
 
 INSERT INTO users_has_receipt VALUES (1, 1);
 INSERT INTO users_has_receipt VALUES (2, 2);
